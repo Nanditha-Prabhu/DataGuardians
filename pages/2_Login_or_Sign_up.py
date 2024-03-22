@@ -1,14 +1,14 @@
 import streamlit as st
-# import firebase_admin
-# from firebase_admin import credentials
+import firebase_admin
+from firebase_admin import credentials
 # from firebase_admin import auth
 # import pyrebase
 
-# try:
-#     app = firebase_admin.get_app()
-# except ValueError as e:
-#     cred = credentials.Certificate("dataguardians-13157-a32431f2469e.json")
-#     firebase_admin.initialize_app(cred)
+try:
+    app = firebase_admin.get_app()
+except ValueError as e:
+    cred = credentials.Certificate("dataguardians-13157-a32431f2469e.json")
+    firebase_admin.initialize_app(cred)
 
 
 # def login():

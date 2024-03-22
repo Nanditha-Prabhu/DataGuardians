@@ -4,6 +4,7 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import firestore
 
+
 # Assuming you've already initialized Firebase Admin SDK
 db = firestore.client()  # Access the Firestore database instance
 
