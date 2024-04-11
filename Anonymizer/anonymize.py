@@ -17,6 +17,8 @@ from presidio_anonymizer import (
     BatchAnonymizerEngine
 )
 
+from .enhance_analyzer import getAnalyzer
+
 
 # Bad Class name :(
 class PIIAnonymizer:
