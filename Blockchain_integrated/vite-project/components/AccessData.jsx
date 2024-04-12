@@ -9,6 +9,7 @@ function AccessData() {
     signer: null,
     contract: null,
   });
+
   const [account, setAccount] = useState("Not connected");
   useEffect(() => {
     const template = async () => {
@@ -58,7 +59,7 @@ function AccessData() {
       amount
     );
     await transaction.wait();
-    alert("Transaction is successul");
+    alert("Transaction is successful");
     window.location.reload();
   };
 
