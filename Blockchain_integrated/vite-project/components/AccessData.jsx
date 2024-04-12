@@ -51,7 +51,7 @@ function AccessData() {
     const file_name = document.querySelector("#file-name").value;
     const column_name = document.querySelector("#anonymizable-data").value;
     //const amount = document.querySelector("#amount").value;
-    const amount = { value: ethers.utils.parseEther("0.001") };
+    const amount = { value: ethers.utils.parseEther("0.0001") };
     const transaction = await contract.anonymize_file(
       file_name,
       column_name,
