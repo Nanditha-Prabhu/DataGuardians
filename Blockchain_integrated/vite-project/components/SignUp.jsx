@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import React, { useState } from 'react'
 import { Navigate, Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../src/contexts/authContext'
+import { useAuth } from '../src/contexts/authContext/index'
 import { doCreateUserWithEmailAndPassword } from '../src/firebase/auth'
 
 export default function SignUp() {
@@ -121,7 +121,8 @@ export default function SignUp() {
                         )}
 
                   <button
-                    type="button"
+                    type="submit"
+                    disabled={isRegistering}
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     {isRegistering ? 'Signing Up...' : 'Sign Up'} <ArrowRight className="ml-2" size={16} />

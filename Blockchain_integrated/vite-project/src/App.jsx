@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import Navbar from "../components/Navbar"
@@ -10,17 +7,19 @@ import SignIn from "../components/SignIn"
 import Footer from "../components/Footer"
 import UploadData from '../components/UploadData';
 import AccessData from '../components/AccessData';
-import { AuthProvider } from "../src/contexts/authContext";
+import PrivacyRegulations from '../components/PrivacyRegulations'
+import YourProfile from '../components/YourProfile';
+import { AuthProvider } from "../src/contexts/authContext/index";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <>
+      <AuthProvider>
         <Navbar />
         <Home />
         <Footer />
-      </>
+      </AuthProvider>
     ),
   },
   {
@@ -46,30 +45,41 @@ const router = createBrowserRouter([
   {
     path: "/Access_Data",
     element: (
-      <>
+      <AuthProvider>
         <Navbar />
         <AccessData/>
         <Footer />
-      </>
+      </AuthProvider>
     ),
   },
   {
     path: "/Upload_Data",
     element: (
-      <>
+      <AuthProvider>
         <Navbar />
         <UploadData/>
         <Footer />
-      </>
+      </AuthProvider>
     ),
   },
   {
     path: "/Privacy_Regulations",
     element: (
-      <>
+      <AuthProvider>
         <Navbar />
+        <PrivacyRegulations/>
         <Footer />
-      </>
+      </AuthProvider>
+    ),
+  },
+  {
+    path: "/Your_Profile",
+    element: (
+      <AuthProvider>
+        <Navbar />
+        <YourProfile/>
+        <Footer />
+      </AuthProvider>
     ),
   },
   
