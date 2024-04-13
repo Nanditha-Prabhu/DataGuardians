@@ -1,10 +1,37 @@
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import { useState, useEffect } from "react";
 
 function UploadData() {
+  const [file, setFile] = useState(null);
+
+  const handleFileUpload = (event) => {
+    const uploadedFile = event.target.files[0];
+    setFile(uploadedFile);
+  };
+
+  const handleFileSubmit = async () => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://localhost:3001/upload", {
+        method: "POST",
+        body: formData,
+      });
+      if (response.ok) {
+        console.log("File uploaded successfully!");
+      } else {
+        console.error("File upload failed!");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
   return (
     <>
-      <form className=" border-4 m-7 p-7">
-      <div className=" font-semibold text-2xl">Upload Data</div>
+      {/* <form className=" border-4 m-7 p-7">
+        <div className=" font-semibold text-2xl">Upload Data</div>
         <div className="col-span-full">
           <label
             htmlFor="cover-photo"
@@ -29,6 +56,7 @@ function UploadData() {
                     name="file-upload"
                     type="file"
                     className="sr-only"
+                    onChange={handleFileUpload}
                   />
                 </label>
                 <p className="pl-1">or drag and drop</p>
@@ -40,15 +68,21 @@ function UploadData() {
           </div>
         </div>
 
-        <a
+        <button
           class="group inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
           href="#"
+          onClick={handleFileSubmit}
         >
           <span class="block rounded-sm bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
             Upload
           </span>
-        </a>
-      </form>
+        </button>
+      </form> */}
+
+      <div>
+        <input type="file" onChange={handleFileUpload} />
+        <button onClick={handleFileSubmit}>Upload File</button>
+      </div>
     </>
   );
 }
