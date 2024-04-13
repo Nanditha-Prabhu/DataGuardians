@@ -14,7 +14,7 @@ function UploadData() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:3001/upload", {
+      const response = await fetch("http://127.0.0.1:5000/upload", {
         method: "POST",
         body: formData,
       });
@@ -30,7 +30,7 @@ function UploadData() {
 
   return (
     <>
-      {/* <form className=" border-4 m-7 p-7">
+      <div className=" border-4 m-7 p-7">
         <div className=" font-semibold text-2xl">Upload Data</div>
         <div className="col-span-full">
           <label
@@ -61,9 +61,7 @@ function UploadData() {
                 </label>
                 <p className="pl-1">or drag and drop</p>
               </div>
-              <p className="text-xs leading-5 text-gray-600">
-                PNG, JPG, GIF up to 10MB
-              </p>
+              <p className="text-xs leading-5 text-gray-600">CSV File</p>
             </div>
           </div>
         </div>
@@ -77,12 +75,12 @@ function UploadData() {
             Upload
           </span>
         </button>
-      </form> */}
+      </div>
 
-      <div>
+      {/* <div>
         <input type="file" onChange={handleFileUpload} />
         <button onClick={handleFileSubmit}>Upload File</button>
-      </div>
+      </div>    */}
     </>
   );
 }
