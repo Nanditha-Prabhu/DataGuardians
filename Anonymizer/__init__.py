@@ -1,1 +1,1 @@
-from .anonymize import PIIAnonymizer
+from .anonymize import PIIAnonymizer, get_anonymizer
