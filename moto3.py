@@ -4,9 +4,9 @@ import boto3
 # # app = Flask(__name__)
 
 # # Define AWS credentials and S3 bucket name
-AWS_ACCESS_KEY_ID = 'AKIA6ODU4UQ3IGZFHWMD'
-AWS_SECRET_ACCESS_KEY = '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'
-S3_BUCKET_NAME = 'accidentreport132'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+S3_BUCKET_NAME = ''
 
 # s3 = boto3.client('s3')
 # # Initialize Boto3 S3 client
