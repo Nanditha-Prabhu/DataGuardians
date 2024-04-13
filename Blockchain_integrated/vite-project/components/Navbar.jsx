@@ -1,45 +1,11 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Bars3Icon,  XMarkIcon } from "@heroicons/react/24/outline";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../src/contexts/authContext/index";
 import { doSignOut } from "../src/firebase/auth"
+import { navigation, navigationBefore } from "./Navigation";
 
-const navigation = [
-  {
-    name: "Home",
-    href: "/",
-    current: true
-  },
-  {
-    name: "Access Data",
-    href: "/Access_Data",
-    current: false
-  },
-  {
-    name: "Upload Data",
-    href: "/Upload_Data",
-    current: false
-  },
-  {
-    name: "Privacy Regulations",
-    href: "/Privacy_Regulations",
-    current: false
-  },
-];
-
-const navigationBefore = [
-  {
-    name: "Home",
-    href: "/",
-    current: true
-  },
-  {
-    name: "Sign Up",
-    href: "/SignUp",
-    current: false
-  }
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -47,6 +13,7 @@ function classNames(...classes) {
 
 function Navbar() {
   const { userLoggedIn } = useAuth();
+  const location = useLocation();
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -81,7 +48,7 @@ function Navbar() {
                         key={item.name}
                         to={item.href}
                         className={classNames(
-                          item.current
+                          item.href === location.pathname
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
@@ -123,7 +90,7 @@ function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src="./public/blank-profile-pic.png"
                         alt=""
                       />
                     </Menu.Button>

@@ -1,6 +1,7 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
 
+
 function UploadData() {
   const [file, setFile] = useState(null);
 
@@ -30,16 +31,17 @@ function UploadData() {
 
   return (
     <>
-      <div className=" border-4 m-7 p-7">
+    <div className="flex flex-col items-center " >
+      <div className=" bg-gray-700 border-4 m-7 p-7 text-white rounded-lg grid grid-cols-1 w-3/6 justify-center items-center ">
         <div className=" font-semibold text-2xl">Upload Data</div>
-        <div className="col-span-full">
+        <div className="col-span-full mt-5">
           <label
             htmlFor="cover-photo"
-            className="block text-sm font-medium leading-6 text-gray-900"
+            className="block text-sm font-medium leading-6 text-white"
           >
             Upload a file
           </label>
-          <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 mx-10 my-10">
+          <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25  py-10  my-10 w-full">
             <div className="text-center">
               <PhotoIcon
                 className="mx-auto h-12 w-12 text-gray-300"
@@ -67,11 +69,11 @@ function UploadData() {
         </div>
 
         <button
-          class="group inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
+          class="group inline-block rounded bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-[2px] hover:text-gr focus:outline-none focus:ring active:text-opacity-75"
           href="#"
           onClick={handleFileSubmit}
         >
-          <span class="block rounded-sm bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
+          <span class="block rounded-sm  bg-gray-700 px-8 py-3 text-sm font-medium group-hover:bg-transparent">
             Upload
           </span>
         </button>
@@ -81,6 +83,7 @@ function UploadData() {
         <input type="file" onChange={handleFileUpload} />
         <button onClick={handleFileSubmit}>Upload File</button>
       </div>    */}
+      </div>
     </>
   );
 }

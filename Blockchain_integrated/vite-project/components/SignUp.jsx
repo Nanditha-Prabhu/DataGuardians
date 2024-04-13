@@ -35,13 +35,13 @@ export default function SignUp() {
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Sign up</h2>
             <p className="mt-2 text-base text-gray-600">
               Already have an account?
-              <a
-                href="#"
+              <Link
+                to="/SignIn"
                 title=""
                 className="font-medium text-black transition-all duration-200 hover:underline"
               >
                 Sign In
-              </a>
+              </Link>
             </p>
             <form onSubmit={onSubmit} action="#" method="POST" className="mt-8">
               <div className="space-y-5">
@@ -136,8 +136,8 @@ export default function SignUp() {
         <div className="h-full w-full">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
-            src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
-            alt=""
+            src="./public/karnataka-state-police-logo-2.png"
+            alt="Logo of karnataka state police"
           />
         </div>
       </div>
