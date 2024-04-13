@@ -3,3 +3,4 @@ dataguardians-13157-a32431f2469e.json
 .streamlit
 *node_modules
 *.env
+__pycache__/
