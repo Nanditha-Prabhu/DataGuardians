@@ -10,6 +10,7 @@ import SignIn from "../components/SignIn"
 import Footer from "../components/Footer"
 import UploadData from '../components/UploadData';
 import AccessData from '../components/AccessData';
+import { AuthProvider } from "../src/contexts/authContext";
 
 const router = createBrowserRouter([
   {
@@ -25,21 +26,21 @@ const router = createBrowserRouter([
   {
     path: "/SignIn",
     element: (
-      <>
+      <AuthProvider>
         <Navbar />
         <SignIn />
         <Footer />
-      </>
+      </AuthProvider>
     ),
   },
   {
     path: "/SignUp",
     element: (
-      <>
+      <AuthProvider>
         <Navbar />
         <SignUp />
         <Footer />
-      </>
+      </AuthProvider>
     ),
   },
   {
