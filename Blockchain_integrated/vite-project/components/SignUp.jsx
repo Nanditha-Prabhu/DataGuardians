@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../src/contexts/authContext/index'
 import { doCreateUserWithEmailAndPassword } from '../src/firebase/auth'
@@ -8,6 +8,9 @@ export default function SignUp() {
 
   const navigate = useNavigate()
 
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const passwordConfirmRef = useRef()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
@@ -18,6 +21,21 @@ export default function SignUp() {
 
   const onSubmit = async (e) => {
       e.preventDefault()
+
+      if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+        return setErrorMessage("Passwords do not match")
+      }
+
+      try {
+        setErrorMessage("")
+        setIsRegistering(true)
+        await userLoggedIn(emailRef.current.value, passwordRef.current.value)
+      } catch {
+        setErrorMessage("Failed to create an account. You might already have an account or something went wrong.")
+      }
+
+      setIsRegistering(false)
+
       if(!isRegistering) {
           setIsRegistering(true)
           await doCreateUserWithEmailAndPassword(email, password)
@@ -67,6 +85,7 @@ export default function SignUp() {
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
+                      ref={emailRef}
                       autoComplete='email'
                       required
                       value={email} onChange={(e) => { setEmail(e.target.value) }}
@@ -88,6 +107,7 @@ export default function SignUp() {
                     autoComplete='new-password'
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="password"
+                      ref={passwordRef}
                       required
                       placeholder="Password"
                       id="password"
@@ -107,6 +127,7 @@ export default function SignUp() {
                     disabled={isRegistering}
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="password"
+                      ref={passwordConfirmRef} 
                       placeholder="Password"
                       autoComplete='off'
                       required

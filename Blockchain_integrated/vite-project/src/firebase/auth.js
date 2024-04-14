@@ -20,9 +20,9 @@ export const doSignOut = () =>{
     return auth.signOut();
 };
 
-// export const doPasswordReset = (email) =>{
-//     return sendPasswordResetEmail(auth,email);
-// };
+export const doPasswordReset = (email) =>{
+    return sendPasswordResetEmail(auth,email);
+};
 
 // export const doPasswordChange = (password)=>{
 //     return updatePassword(auth.currentUser,password);

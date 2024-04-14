@@ -15,6 +15,17 @@ export default function SignIn() {
 
     const onSubmit = async (e) => {
         e.preventDefault()
+
+        try {
+          setErrorMessage("")
+          setIsSigningIn(true)
+          await userLoggedIn(emailRef.current.value, passwordRef.current.value)
+        } catch {
+          setErrorMessage("Failed to log in")
+        }
+    
+        setIsSigningIn(false)
+
         if(!isSigningIn) {
             setIsSigningIn(true)
             await doSignInWithEmailAndPassword(email, password)
