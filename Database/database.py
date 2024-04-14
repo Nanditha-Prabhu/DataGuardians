@@ -55,14 +55,18 @@ def delete_file():
 
 
 # Route to display file and anonymize
-@app.get("/display-anonymized-data")
+@app.route("/display-anonymized-data", methods = ['POST'])
 def display_anonymized_data():
     data = request.json
     try:
-        client = MongoClient(os.getenv('MONGO_URL'))
-        db = client['KSP-DATABASE']
-        collection = db[data['file_name']]   # key name TDB 
+        column_name = data['column_name']
+        file_name = data['file_name']
+        print(column_name)
+        print(file_name)
+        collection = db[file_name]   # key name TDB 
         requested_data = collection.find({}, {'_id': False})
+        print(requested_data)
+
 
         # Anonymize the retrieved data
         anonymizer = get_anonymizer()
@@ -71,7 +75,7 @@ def display_anonymized_data():
             anonymized_data.append(
                 anonymizer(
                     input_data=data,
-                    keys_to_skip=None, # Data will be taken from frontend
+                    keys_to_skip=column_name, # Data will be taken from frontend
                 )
             )
         client.close()
