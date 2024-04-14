@@ -54,14 +54,14 @@ function AccessData() {
   }, []);
   const buyChai = async (event) => {
     event.preventDefault();
-    const { contract } = state;
-    const name = document.querySelector("#file-name").value;
-    const message = document.querySelector("#anonymizable-data").value;
-    //const amount = document.querySelector("#amount").value;
-    const amount = { value: ethers.utils.parseEther("0.001") };
-    const transaction = await contract.anonymize_file(name, message, amount);
-    await transaction.wait();
-    alert("Transaction is successul");
+    // const { contract } = state;
+    // const name = document.querySelector("#file-name").value;
+    // const message = document.querySelector("#anonymizable-data").value;
+    // //const amount = document.querySelector("#amount").value;
+    // const amount = { value: ethers.utils.parseEther("0.001") };
+    // const transaction = await contract.anonymize_file(name, message, amount);
+    // await transaction.wait();
+    // alert("Transaction is successul");
 
     const fileName = selectedFileName;
     const columnName = document.querySelector("#anonymizable-data").value;

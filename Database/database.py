@@ -63,7 +63,16 @@ def display_anonymized_data():
         file_name = data['file_name']
         print(column_name)
         print(file_name)
-        collection = db[file_name]   # key name TDB 
+        collection = db[file_name]
+        document = collection.find_one()
+        # Get all keys in the document
+        keys = document.keys()   # key name TDB 
+        keys = list(keys)
+        arr=[]
+        for i in keys:
+            if i!= column_name:
+                arr.append(i)
+        print(arr)
         requested_data = collection.find({}, {'_id': False})
         print(requested_data)
 
@@ -75,7 +84,7 @@ def display_anonymized_data():
             anonymized_data.append(
                 anonymizer(
                     input_data=data,
-                    keys_to_skip=column_name, # Data will be taken from frontend
+                    keys_to_skip=arr, # Data will be taken from frontend
                 )
             )
         client.close()
