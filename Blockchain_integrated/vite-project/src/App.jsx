@@ -1,14 +1,14 @@
-import './App.css'
+import "./App.css";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
-import Navbar from "../components/Navbar"
-import Home from "../components/Home"
-import SignUp from "../components/SignUp"
-import SignIn from "../components/SignIn"
-import Footer from "../components/Footer"
-import UploadData from '../components/UploadData';
-import AccessData from '../components/AccessData';
-import PrivacyRegulations from '../components/PrivacyRegulations'
-import YourProfile from '../components/YourProfile';
+import Navbar from "../components/Navbar";
+import Home from "../components/Home";
+import SignUp from "../components/SignUp";
+import SignIn from "../components/SignIn";
+import Footer from "../components/Footer";
+import UploadData from "../components/UploadData";
+import AccessData from "../components/AccessData";
+import PrivacyRegulations from "../components/PrivacyRegulations";
+import YourProfile from "../components/YourProfile";
 import { AuthProvider } from "../src/contexts/authContext/index";
 
 const router = createBrowserRouter([
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
     element: (
       <AuthProvider>
         <Navbar />
-        <AccessData/>
+        <AccessData />
         <Footer />
       </AuthProvider>
     ),
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
     element: (
       <AuthProvider>
         <Navbar />
-        <UploadData/>
+        <UploadData />
         <Footer />
       </AuthProvider>
     ),
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     element: (
       <AuthProvider>
         <Navbar />
-        <PrivacyRegulations/>
+        <PrivacyRegulations />
         <Footer />
       </AuthProvider>
     ),
@@ -77,12 +77,11 @@ const router = createBrowserRouter([
     element: (
       <AuthProvider>
         <Navbar />
-        <YourProfile/>
+        <YourProfile />
         <Footer />
       </AuthProvider>
     ),
   },
-  
 ]);
 
 export default function App() {
