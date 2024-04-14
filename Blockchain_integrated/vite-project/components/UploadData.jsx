@@ -19,12 +19,12 @@ function UploadData() {
         body: formData,
       });
       if (response.ok) {
-        console.log("File uploaded successfully!");
+        alert("File uploaded successfully!");
       } else {
-        console.error("File upload failed!");
+        alert("File upload failed!");
       }
     } catch (error) {
-      console.error("Error uploading file:", error);
+      alert("Error uploading file:", error);
     }
   };
 
