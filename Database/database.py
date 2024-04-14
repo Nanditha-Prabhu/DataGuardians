@@ -1,6 +1,10 @@
 import csv
 import codecs
 import os
+from dotenv import load_dotenv
+
+from flask_cors import CORS  # Import CORS from Flask-CORS
+
 
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
@@ -9,33 +13,39 @@ from Anonymizer import get_anonymizer
 
 
 app = Flask(__name__)
+CORS(app)
+
+client = MongoClient(os.getenv('MONGO_URL'))
+db = client['KSP_DATABASE'] 
 
 
 # Route to upload file
-@app.post("/upload-file")
-def upload_file():
-    file = request.files
-    csv_file = file['file']
-    try:
-        # Use CSV DictReader to convert data into list of dict
-        dict_reader = csv.DictReader(codecs.iterdecode(csv_file, 'utf-8'))
-        
-        # Store data in mongodb
-        client = MongoClient(os.getenv('MONGO_URL'))
-        db = client['KSP-DataGuardians']
-        collection = db[csv_file.filename[:-4]]  # Here, collection name is considered as file_name 
-        collection.insert_many(list(dict_reader))
-        client.close()
-        
-        # Debug Msg
-        print("Stored Successfully")
-    except Exception as e:
-        print(f"Error: {e}")
-        return jsonify({'status': f'error: {e}'})
-    finally:
-        client.close()
+@app.route('/upload', methods=['POST'])
+def upload_csv():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'})
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'})
+    if file:
+        csv_data = file.read().decode('utf-8')
+        file_name = file.filename.split('.')[0]  # Extract file name without extension
+        save_csv_to_mongodb(csv_data, file_name)
+        return jsonify({'message': 'File uploaded successfully'})
 
-    return jsonify({'status': 'Successfully stored'})
+def save_csv_to_mongodb(csv_data, collection_name):
+    # Parse CSV data and convert it to JSON
+    csv_rows = csv_data.split("\n")
+    csv_reader = csv.DictReader(csv_rows)
+    json_data = []
+    for row in csv_reader:
+        json_data.append(row)
+
+    # Use file name as collection name
+    collection = db[collection_name]
+    
+    # Save JSON data to MongoDB
+    collection.insert_many(json_data)
 
 
 # Route to delete file
@@ -50,7 +60,7 @@ def display_anonymized_data():
     data = request.json
     try:
         client = MongoClient(os.getenv('MONGO_URL'))
-        db = client['KSP-DataGuardians']
+        db = client['KSP-DATABASE']
         collection = db[data['file_name']]   # key name TDB 
         requested_data = collection.find({}, {'_id': False})
 
@@ -77,6 +87,28 @@ def display_anonymized_data():
         'status': 'retrived and anonymized successfully', 
         'data': anonymized_data
     })
+
+# Connect to MongoDB
+
+
+# Route to fetch file names (collection names)
+@app.route('/fileNames', methods=['GET'])
+def get_file_names():
+    collection_names = db.list_collection_names()
+    print(collection_names)
+    return jsonify(collection_names)
+
+# Route to fetch anonymizable keys for a given file
+@app.route('/anonymizableKeys', methods=['GET'])
+def get_anonymizable_keys():
+    file_name = request.args.get('fileName')
+    collection = db[file_name]  # Access the collection with the given file name
+    document = collection.find_one()
+    if document:
+        anonymizable_keys = list(document.keys())  # Assuming all keys are anonymizable
+        return jsonify(anonymizable_keys)
+    else:
+        return jsonify([])
 
 
 if __name__ == "__main__":
