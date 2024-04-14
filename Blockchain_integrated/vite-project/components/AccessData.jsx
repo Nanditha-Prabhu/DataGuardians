@@ -12,9 +12,10 @@ function AccessData() {
   });
 
   const [account, setAccount] = useState("Not connected");
-  const [fileNames, setFileNames] = useState([]); // State variable to hold file names
-  const [selectedFileName, setSelectedFileName] = useState(""); // State variable to hold selected file name
-  const [anonymizableKeys, setAnonymizableKeys] = useState([]); // State variable to hold anonymizable keys
+  const [fileNames, setFileNames] = useState([]);
+  const [selectedFileName, setSelectedFileName] = useState("");
+  const [anonymizableKeys, setAnonymizableKeys] = useState([]);
+  const [anonymizedData, setAnonymizedData] = useState([]);
 
   useEffect(() => {
     const template = async () => {
@@ -51,8 +52,52 @@ function AccessData() {
     };
     template();
   }, []);
+  const buyChai = async (event) => {
+    event.preventDefault();
+    const { contract } = state;
+    const name = document.querySelector("#file-name").value;
+    const message = document.querySelector("#anonymizable-data").value;
+    //const amount = document.querySelector("#amount").value;
+    const amount = { value: ethers.utils.parseEther("0.001") };
+    const transaction = await contract.anonymize_file(name, message, amount);
+    await transaction.wait();
+    alert("Transaction is successul");
 
-  // Function to handle file selection
+    const fileName = selectedFileName;
+    const columnName = document.querySelector("#anonymizable-data").value;
+
+    // Send file name and column name to backend
+    const data = {
+      file_name: fileName,
+      column_name: columnName,
+    };
+
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:5000/display-anonymized-data",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      alert(
+        "Data anonymized successfully and stored in database. Please go to downloads section to download the anonymized data."
+      );
+      setAnonymizedData(responseData.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   const handleFileSelect = async (event) => {
     const selectedFile = event.target.value;
     setSelectedFileName(selectedFile);
@@ -64,28 +109,12 @@ function AccessData() {
     setAnonymizableKeys(response.data);
   };
 
-  const anonymize_file = async (event) => {
-    event.preventDefault();
-    const { contract } = state;
-    const file_name = selectedFileName;
-    const column_name = document.querySelector("#anonymizable-data").value;
-    const amount = { value: ethers.utils.parseEther("0.001") };
-    const transaction = await contract.anonymize_file(
-      file_name,
-      column_name,
-      amount
-    );
-    await transaction.wait();
-    alert("Transaction is successful");
-    window.location.reload();
-  };
-
   return (
     <>
       <div className="flex flex-col items-center">
         <form
           className="border-4 m-7 p-7 bg-gray-700 text-white rounded-lg grid grid-cols-1 justify-center items-center w-96"
-          onSubmit={anonymize_file}
+          onSubmit={buyChai}
         >
           <div className="font-semibold text-2xl">Access the Data</div>
           <div className="sm:col-span-3 mt-5">
@@ -101,7 +130,7 @@ function AccessData() {
                 name="file-name"
                 autoComplete="file-name"
                 className="block px-3 py-2 place-content-stretch justify-items-stretch w-full rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                onChange={handleFileSelect} // Call handleFileSelect on change
+                onChange={handleFileSelect}
               >
                 {fileNames.map((fileName, index) => (
                   <option key={index}>{fileName}</option>
@@ -140,6 +169,69 @@ function AccessData() {
             </span>
           </button>
         </form>
+
+        <div>
+          <h2>Anonymized Data</h2>
+          <div
+            style={{
+              backgroundColor: "dodgerblue",
+              padding: "10px",
+              borderRadius: "5px",
+            }}
+          >
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr>
+                  <th
+                    style={{
+                      backgroundColor: "dodgerblue",
+                      color: "white",
+                      padding: "8px",
+                      textAlign: "left",
+                    }}
+                  >
+                    First Name
+                  </th>
+                  <th
+                    style={{
+                      backgroundColor: "dodgerblue",
+                      color: "white",
+                      padding: "8px",
+                      textAlign: "left",
+                    }}
+                  >
+                    Middle Name
+                  </th>
+                  <th
+                    style={{
+                      backgroundColor: "dodgerblue",
+                      color: "white",
+                      padding: "8px",
+                      textAlign: "left",
+                    }}
+                  >
+                    Last Name
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {anonymizedData.map((item, index) => (
+                  <tr key={index}>
+                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      {item["First Name"]}
+                    </td>
+                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      {item["Middle Name"]}
+                    </td>
+                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      {item["Last Name"]}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
         <Memos state={state} />
       </div>

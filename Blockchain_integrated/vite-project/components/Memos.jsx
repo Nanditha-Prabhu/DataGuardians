@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-
 const Memos = ({ state }) => {
   const [memos, setMemos] = useState([]);
   const { contract } = state;
@@ -14,7 +13,7 @@ const Memos = ({ state }) => {
   }, [contract]);
   return (
     <div className="container-fluid">
-      <h3 style={{ textAlign: "center", marginTop: "20px" }}>Messages</h3>
+      <h3 style={{ textAlign: "center", marginTop: "20px" }}>History</h3>
       <table>
         <tbody>
           {memos.map((memo) => {

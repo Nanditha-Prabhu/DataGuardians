@@ -1,25 +1,51 @@
 import csv
 import codecs
 import os
+from bson import ObjectId
 from dotenv import load_dotenv
-
+import io
 from flask_cors import CORS  # Import CORS from Flask-CORS
 
-
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from pymongo import MongoClient
 
 from Anonymizer import get_anonymizer
-
 
 app = Flask(__name__)
 CORS(app)
 
 client = MongoClient(os.getenv('MONGO_URL'))
 db = client['KSP_DATABASE'] 
+destinationdb= client['KSP_ANONYMIZED_DATABASE']
 
 
 # Route to upload file
+@app.route('/collections')
+def get_collections():
+    collections = destinationdb.list_collection_names()
+    return jsonify(collections)
+
+@app.route('/download/<collection_name>')
+def download_csv(collection_name):
+    print("Hello")
+    collection = destinationdb[collection_name]
+    documents = collection.find()
+
+    # Prepare CSV data
+    csv_data = io.StringIO()
+    csv_writer = csv.DictWriter(csv_data, fieldnames=documents[0].keys())
+    csv_writer.writeheader()
+    for doc in documents:
+        csv_writer.writerow(doc)
+
+    csv_data.seek(0)
+
+    return send_file(csv_data,
+                     mimetype='text/csv',
+                     attachment_filename=f'{collection_name}.csv',
+                     as_attachment=True)
+
+
 @app.route('/upload', methods=['POST'])
 def upload_csv():
     if 'file' not in request.files:
@@ -55,25 +81,41 @@ def delete_file():
 
 
 # Route to display file and anonymize
-@app.get("/display-anonymized-data")
+@app.route("/display-anonymized-data", methods = ['POST'])
 def display_anonymized_data():
     data = request.json
     try:
-        client = MongoClient(os.getenv('MONGO_URL'))
-        db = client['KSP-DATABASE']
-        collection = db[data['file_name']]   # key name TDB 
+        column_name = data['column_name']
+        file_name = data['file_name']
+        print(column_name)
+        print(file_name)
+        collection = db[file_name]
+        document = collection.find_one()
+        # Get all keys in the document
+        keys = document.keys()   # key name TDB 
+        keys = list(keys)
+        arr=[]
+        for i in keys:
+            if i!= column_name:
+                arr.append(i)
+        print(arr)
         requested_data = collection.find({}, {'_id': False})
+        print(requested_data)
+
 
         # Anonymize the retrieved data
         anonymizer = get_anonymizer()
+        
         anonymized_data = list()
         for data in requested_data:
-            anonymized_data.append(
-                anonymizer(
-                    input_data=data,
-                    keys_to_skip=None, # Data will be taken from frontend
-                )
-            )
+            anonymized_doc = anonymizer(input_data=data, keys_to_skip=arr)
+            anonymized_data.append(anonymized_doc)
+
+ 
+        # destination_collection = destinationdb[file_name]
+        
+        # # Insert anonymized data into destination collection
+        # destination_collection.insert_many(anonymized_data)
         client.close()
     except Exception as e:
         print(f"Error: {e}")
