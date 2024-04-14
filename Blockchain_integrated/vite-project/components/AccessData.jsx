@@ -54,14 +54,14 @@ function AccessData() {
   }, []);
   const buyChai = async (event) => {
     event.preventDefault();
-    // const { contract } = state;
-    // const name = document.querySelector("#file-name").value;
-    // const message = document.querySelector("#anonymizable-data").value;
-    // //const amount = document.querySelector("#amount").value;
-    // const amount = { value: ethers.utils.parseEther("0.001") };
-    // const transaction = await contract.anonymize_file(name, message, amount);
-    // await transaction.wait();
-    // alert("Transaction is successul");
+    const { contract } = state;
+    const name = document.querySelector("#file-name").value;
+    const message = document.querySelector("#anonymizable-data").value;
+    //const amount = document.querySelector("#amount").value;
+    const amount = { value: ethers.utils.parseEther("0.001") };
+    const transaction = await contract.anonymize_file(name, message, amount);
+    await transaction.wait();
+    alert("Transaction is successul");
 
     const fileName = selectedFileName;
     const columnName = document.querySelector("#anonymizable-data").value;
@@ -90,6 +90,9 @@ function AccessData() {
 
       const responseData = await response.json();
       console.log(responseData);
+      alert(
+        "Data anonymized successfully and stored in database. Please go to downloads section to download the anonymized data."
+      );
       setAnonymizedData(responseData.data);
     } catch (error) {
       console.error("Error:", error);
@@ -104,10 +107,6 @@ function AccessData() {
       `http://127.0.0.1:5000/anonymizableKeys?fileName=${selectedFile}`
     );
     setAnonymizableKeys(response.data);
-  };
-
-  const anonymizeAndDisplayData = async (event) => {
-    event.preventDefault();
   };
 
   return (
@@ -173,11 +172,65 @@ function AccessData() {
 
         <div>
           <h2>Anonymized Data</h2>
-          <ul>
-            {anonymizedData.map((item, index) => (
-              <li key={index}>{JSON.stringify(item)}</li>
-            ))}
-          </ul>
+          <div
+            style={{
+              backgroundColor: "dodgerblue",
+              padding: "10px",
+              borderRadius: "5px",
+            }}
+          >
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr>
+                  <th
+                    style={{
+                      backgroundColor: "dodgerblue",
+                      color: "white",
+                      padding: "8px",
+                      textAlign: "left",
+                    }}
+                  >
+                    First Name
+                  </th>
+                  <th
+                    style={{
+                      backgroundColor: "dodgerblue",
+                      color: "white",
+                      padding: "8px",
+                      textAlign: "left",
+                    }}
+                  >
+                    Middle Name
+                  </th>
+                  <th
+                    style={{
+                      backgroundColor: "dodgerblue",
+                      color: "white",
+                      padding: "8px",
+                      textAlign: "left",
+                    }}
+                  >
+                    Last Name
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {anonymizedData.map((item, index) => (
+                  <tr key={index}>
+                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      {item["First Name"]}
+                    </td>
+                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      {item["Middle Name"]}
+                    </td>
+                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                      {item["Last Name"]}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <Memos state={state} />
