@@ -213,9 +213,8 @@ export default function PrivacyRegulations() {
 
                 <p className="mt-1 text-sm text-gray-300">
                   Enable users to exercise control over their personal data,
-                  including the ability to access, rectify, and delete their
-                  information. Implement mechanisms to facilitate user requests
-                  for data deletion or anonymization.
+                  including the ability to access and rectify their
+                  information.
                 </p>
               </div>
             </div>
