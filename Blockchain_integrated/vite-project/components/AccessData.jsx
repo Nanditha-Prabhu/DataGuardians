@@ -14,7 +14,7 @@ function AccessData() {
   const [account, setAccount] = useState("Not connected");
   const [fileNames, setFileNames] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
-  const [anonymizableKeys, setAnonymizableKeys] = useState([]);
+  const [columnNames, setColumnNames] = useState([]); // prev -> anonymizableKeys, Update -> columnNames
   const [anonymizedData, setAnonymizedData] = useState([]);
 
   useEffect(() => {
@@ -64,12 +64,13 @@ function AccessData() {
     alert("Transaction is successul");
 
     const fileName = selectedFileName;
-    const columnName = document.querySelector("#anonymizable-data").value;
+    const anonymize_columns = document.querySelector("#anonymizable-data").value;  // anonymizeColumns must be a list, it must contain list of columns to anonymize
 
     // Send file name and column name to backend
     const data = {
       file_name: fileName,
-      column_name: columnName,
+      column_name: columnNames,
+      anonymize_columns: anonymize_columns 
     };
 
     try {
@@ -104,14 +105,15 @@ function AccessData() {
 
     // Fetch anonymizable keys for the selected file from Flask backend
     const response = await axios.get(
-      `http://127.0.0.1:5000/anonymizableKeys?fileName=${selectedFile}`
+      `http://127.0.0.1:5000/columnNames?fileName=${selectedFile}`
     );
-    setAnonymizableKeys(response.data);
+    setColumnNames(response.data);
   };
 
   return (
     <>
       <div className="flex flex-col items-center">
+        {/* Starts: Taking info from user, like what to display and which file to display */}
         <form
           className="border-4 m-7 p-7 bg-gray-700 text-white rounded-lg grid grid-cols-1 justify-center items-center w-96"
           onSubmit={buyChai}
@@ -153,7 +155,7 @@ function AccessData() {
                 autoComplete="anonymizable-data"
                 className="block px-3 py-2 w-full rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                {anonymizableKeys.map((key, index) => (
+                {columnNames.map((key, index) => (
                   <option key={index}>{key}</option>
                 ))}
               </select>
@@ -169,68 +171,33 @@ function AccessData() {
             </span>
           </button>
         </form>
+        {/* Ends: Taking info from user, like what to display and which file to display */}
 
-        <div>
-          <h2>Anonymized Data</h2>
-          <div
-            style={{
-              backgroundColor: "dodgerblue",
-              padding: "10px",
-              borderRadius: "5px",
-            }}
+        {/* Start: Here, the output from the server is displayed */}
+        <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+          <table
+            className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900"
           >
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead>
-                <tr>
-                  <th
-                    style={{
-                      backgroundColor: "dodgerblue",
-                      color: "white",
-                      padding: "8px",
-                      textAlign: "left",
-                    }}
-                  >
-                    First Name
-                  </th>
-                  <th
-                    style={{
-                      backgroundColor: "dodgerblue",
-                      color: "white",
-                      padding: "8px",
-                      textAlign: "left",
-                    }}
-                  >
-                    Middle Name
-                  </th>
-                  <th
-                    style={{
-                      backgroundColor: "dodgerblue",
-                      color: "white",
-                      padding: "8px",
-                      textAlign: "left",
-                    }}
-                  >
-                    Last Name
-                  </th>
+            <thead className="ltr:text-left rtl:text-right">
+              <tr>
+                {columnNames.map((keys) => {
+                  return <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">{keys}</th>
+                })}
+              </tr>
+            </thead>
+
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              {anonymizedData.map((data) => {
+                return <tr>
+                  {columnNames.map((key) => {
+                    return <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                      {data[key]}
+                    </td>
+                  })}
                 </tr>
-              </thead>
-              <tbody>
-                {anonymizedData.map((item, index) => (
-                  <tr key={index}>
-                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                      {item["First Name"]}
-                    </td>
-                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                      {item["Middle Name"]}
-                    </td>
-                    <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                      {item["Last Name"]}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              })}
+            </tbody>
+          </table>
         </div>
 
         <Memos state={state} />
