@@ -14,7 +14,9 @@ function AccessData() {
   const [account, setAccount] = useState("Not connected");
   const [fileNames, setFileNames] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
+  // ColumnNames gives the list of column name avail to selected filename or collection
   const [columnNames, setColumnNames] = useState([]); // prev -> anonymizableKeys, Update -> columnNames
+  // AnonymizedData contains data that received from backend after anonymizing the req data
   const [anonymizedData, setAnonymizedData] = useState([]);
 
   useEffect(() => {
@@ -64,13 +66,14 @@ function AccessData() {
     // alert("Transaction is successul");
 
     const fileName = selectedFileName;
-    const anonymize_columns = document.querySelector("#anonymizable-data").value;  // anonymizeColumns must be a list, it must contain list of columns to anonymize
+    const anonymize_columns =
+      document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
 
     // Send file name and column name to backend
     const data = {
       file_name: fileName,
       column_name: columnNames,
-      anonymize_columns: anonymize_columns 
+      anonymize_columns: anonymize_columns,
     };
 
     try {
@@ -84,7 +87,7 @@ function AccessData() {
           body: JSON.stringify(data),
         }
       );
-      console.log(response)
+      console.log(response);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -99,6 +102,7 @@ function AccessData() {
       console.error("Error:", error);
     }
   };
+
   const handleFileSelect = async (event) => {
     const selectedFile = event.target.value;
     setSelectedFileName(selectedFile);
@@ -174,27 +178,42 @@ function AccessData() {
         {/* Ends: Taking info from user, like what to display and which file to display */}
 
         {/* Start: Here, the output from the server is displayed */}
+        <div className=" mb-5 flex flex-shrink-0 items-center">
+          <input
+            placeholder="Search..."
+            id="search"
+            name="search"
+            className="block px-3 py-2 place-content-stretch justify-items-stretch w-full rounded-md border-1  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-slate-600 sm:max-w-xs sm:text-sm sm:leading-6"
+          />
+        </div>
         <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-          <table
-            className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900"
-          >
+          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
             <thead className="ltr:text-left rtl:text-right">
               <tr>
                 {columnNames.map((keys, idx) => (
-                  <th key={idx} className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">{keys}</th>
+                  <th
+                    key={idx}
+                    className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200"
+                  >
+                    {keys}
+                  </th>
                 ))}
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {anonymizedData.map((data) => {
-                return <tr>
-                  {columnNames.map((key) => {
-                    return <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
-                      {data[key]}
-                    </td>
-                  })}
-                </tr>
+                return (
+                  <tr>
+                    {columnNames.map((key) => {
+                      return (
+                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                          {data[key]}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
               })}
             </tbody>
           </table>
