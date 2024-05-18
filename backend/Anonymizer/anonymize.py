@@ -5,8 +5,8 @@ from typing import (
     Optional, 
 )
 
-from googletrans import Translator
-import pandas as pd
+# from googletrans import Translator
+# import pandas as pd
 from presidio_analyzer import (
     AnalyzerEngine, 
     BatchAnalyzerEngine,
@@ -29,7 +29,7 @@ class PIIAnonymizer:
         ) -> None:
         self.analyzer = BatchAnalyzerEngine(analyzer_engine=analyzer_engine)
         self.anonymizer = BatchAnonymizerEngine(anonymizer_engine=anonymizer_engine)
-        self.translator = Translator()
+        # self.translator = Translator()
 
     def __call__(
             self, 
@@ -38,9 +38,9 @@ class PIIAnonymizer:
             keys_to_skip: Optional[List[str]]=None
         ) -> Dict[str, List[str]]:
         input_data = {header: str(values) for header, values in input_data.items()}
-        tr_input_data = self._translate(input_data)
+        # tr_input_data = self._translate(input_data)
         analyzer_results = self._analyze_data(
-            data=tr_input_data, 
+            data=input_data, 
             language=language, 
             keys_to_skip=keys_to_skip
         )
@@ -67,26 +67,26 @@ class PIIAnonymizer:
         ) -> Dict[str, str]:
         return self.anonymizer.anonymize_dict(analyzer_results)
 
-    def _translate(
-            self, 
-            data: Dict[str, List[int|str]],
-            src_lang: str='auto', 
-            dest_lang: str='en'
-        ) -> Dict[str, List[str]]:
-        if (isinstance(list(data.values())[0], list)):
-            df = pd.DataFrame(data)
-            for column in df.columns.tolist():
-                # Greedy
-                if (self.translator.detect(df[column][0]).lang != 'en'):
-                    df[column] = df[column].apply(
-                        lambda x: self.translator.translate(text=x, dest=dest_lang, src=src_lang).text
-                    )
-            return df.to_dict(orient='list')
+    # def _translate(
+    #         self, 
+    #         data: Dict[str, List[int|str]],
+    #         src_lang: str='auto', 
+    #         dest_lang: str='en'
+    #     ) -> Dict[str, List[str]]:
+    #     if (isinstance(list(data.values())[0], list)):
+    #         df = pd.DataFrame(data)
+    #         for column in df.columns.tolist():
+    #             # Greedy
+    #             if (self.translator.detect(df[column][0]).lang != 'en'):
+    #                 df[column] = df[column].apply(
+    #                     lambda x: self.translator.translate(text=x, dest=dest_lang, src=src_lang).text
+    #                 )
+    #         return df.to_dict(orient='list')
     
-        if (isinstance(list(data.values())[0], str)):
-            for key in data.keys():
-                data[key] = self.translator.translate(text=data[key], dest=dest_lang, src=src_lang).text
-            return data
+    #     if (isinstance(list(data.values())[0], str)):
+    #         for key in data.keys():
+    #             data[key] = self.translator.translate(text=data[key], dest=dest_lang, src=src_lang).text
+    #         return data
 
 
 def get_anonymizer():

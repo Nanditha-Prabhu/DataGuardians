@@ -37,7 +37,7 @@ function Navbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto rounded-full"
-                    src="../public/half-logo.png"
+                    src="/half-logo.png"
                     alt="Your Company"
                   />
                 </div>
@@ -90,7 +90,7 @@ function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="./public/blank-profile-pic.png"
+                        src="/blank-profile-pic.png"
                         alt=""
                       />
                     </Menu.Button>

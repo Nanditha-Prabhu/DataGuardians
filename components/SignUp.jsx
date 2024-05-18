@@ -157,7 +157,7 @@ export default function SignUp() {
         <div className="h-full w-full">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
-            src="./public/karnataka-state-police-logo-2.png"
+            src="/karnataka-state-police-logo-2.png"
             alt="Logo of karnataka state police"
           />
         </div>

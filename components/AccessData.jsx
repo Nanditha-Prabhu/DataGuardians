@@ -32,16 +32,16 @@ function AccessData() {
           window.location.reload();
         });
         setAccount(account);
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
+        // const provider = new ethers.providers.Web3Provider(ethereum);
+        // const signer = provider.getSigner();
 
-        const contract = new ethers.Contract(
-          contractAddres,
-          contractABI,
-          signer
-        );
-        console.log(contract);
-        setState({ provider, signer, contract });
+        // const contract = new ethers.Contract(
+        //   contractAddres,
+        //   contractABI,
+        //   signer
+        // );
+        // console.log(contract);
+        // setState({ provider, signer, contract });
 
         // Fetch file names from Flask backend
         const response = await axios.get("http://127.0.0.1:5000/fileNames");
@@ -57,11 +57,11 @@ function AccessData() {
     const { contract } = state;
     const name = document.querySelector("#file-name").value;
     const message = document.querySelector("#anonymizable-data").value;
-    //const amount = document.querySelector("#amount").value;
-    const amount = { value: ethers.utils.parseEther("0.001") };
-    const transaction = await contract.anonymize_file(name, message, amount);
-    await transaction.wait();
-    alert("Transaction is successul");
+    // const amount = document.querySelector("#amount").value;
+    // const amount = { value: ethers.utils.parseEther("0.001") };
+    // const transaction = await contract.anonymize_file(name, message, amount);
+    // await transaction.wait();
+    // alert("Transaction is successul");
 
     const fileName = selectedFileName;
     const anonymize_columns = document.querySelector("#anonymizable-data").value;  // anonymizeColumns must be a list, it must contain list of columns to anonymize
@@ -84,7 +84,7 @@ function AccessData() {
           body: JSON.stringify(data),
         }
       );
-
+      console.log(response)
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -180,9 +180,9 @@ function AccessData() {
           >
             <thead className="ltr:text-left rtl:text-right">
               <tr>
-                {columnNames.map((keys) => {
-                  return <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">{keys}</th>
-                })}
+                {columnNames.map((keys, idx) => (
+                  <th key={idx} className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">{keys}</th>
+                ))}
               </tr>
             </thead>
 

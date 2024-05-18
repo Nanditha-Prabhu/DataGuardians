@@ -51,7 +51,7 @@ export default function SignIn() {
           <div className="absolute inset-0">
             <img
               className="h-full w-full rounded-md object-cover object-top"
-              src="./public/karnataka-state-police-logo.jpg"
+              src="/karnataka-state-police-logo.jpg"
               alt= "Logo of karnataka state police"
             />
           </div>

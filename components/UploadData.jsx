@@ -69,11 +69,11 @@ function UploadData() {
         </div>
 
         <button
-          class="group inline-block rounded bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-[2px] hover:text-gr focus:outline-none focus:ring active:text-opacity-75"
+          className="group inline-block rounded bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-[2px] hover:text-gr focus:outline-none focus:ring active:text-opacity-75"
           href="#"
           onClick={handleFileSubmit}
         >
-          <span class="block rounded-sm  bg-gray-700 px-8 py-3 text-sm font-medium group-hover:bg-transparent">
+          <span className="block rounded-sm  bg-gray-700 px-8 py-3 text-sm font-medium group-hover:bg-transparent">
             Upload
           </span>
         </button>

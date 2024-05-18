@@ -27,6 +27,11 @@ CORS(app)
 
 @app.get("/")
 def index():
+    client = MongoClient(os.getenv('MONGO_URL'))
+    db = client['KSP-DataGuardians']
+    collection = db["sample"] # key name TDB 
+    requested_data = collection.find({}, {'_id': False})
+    print(requested_data)
     return "Server Working Good"
 
 
@@ -128,4 +133,4 @@ def get_anonymizable_keys():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
