@@ -40,16 +40,16 @@ function AccessData() {
           window.location.reload();
         });
         setAccount(account);
-        // const provider = new ethers.providers.Web3Provider(ethereum);
-        // const signer = provider.getSigner();
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
 
-        // const contract = new ethers.Contract(
-        //   contractAddres,
-        //   contractABI,
-        //   signer
-        // );
-        // console.log(contract);
-        // setState({ provider, signer, contract });
+        const contract = new ethers.Contract(
+          contractAddres,
+          contractABI,
+          signer
+        );
+        console.log(contract);
+        setState({ provider, signer, contract });
 
         // Fetch file names from Flask backend
         const response = await axios.get(`${baseUrl}/fileNames`);
@@ -69,41 +69,45 @@ function AccessData() {
 
     // Case 1 : The user checks the box
     if (checked) {
-      if (!anonymizedCols.includes(value))
-        setAnonymizedCols(cols => [...cols, value])
-    } 
+
+      cols = value;
+      anonymizedCols.push(cols);
+      setAnonymizedCols(cols);
+    }
 
     // Case 2  : The user unchecks the box
     else {
-      const index = anonymizedCols.indexOf(value);
+      cols = value;
+      const index = anonymizedCols.indexOf(cols);
       if (index !== -1) {
         anonymizedCols.splice(index, 1);
         setAnonymizedCols(anonymizedCols)
       }
     }
-    console.log(anonymizedCols)
-  }
+    console.log(anonymizedCols);
+  };
 
   const buyChai = async (event) => {
     event.preventDefault();
     const { contract } = state;
     const name = document.querySelector("#file-name").value;
-    // const message = document.querySelector("#anonymizable-data").value;
-    // const amount = document.querySelector("#amount").value;
-    // const amount = { value: ethers.utils.parseEther("0.001") };
-    // const transaction = await contract.anonymize_file(name, message, amount);
-    // await transaction.wait();
-    // alert("Transaction is successul");
+
+    const message = document.querySelector("#anonymizable-data").value;
+    //const amount = document.querySelector("#amount").value;
+    const amount = { value: ethers.utils.parseEther("0.001") };
+    const transaction = await contract.anonymize_file(name, message, amount);
+    await transaction.wait();
+    alert("Transaction is successul");
 
     const fileName = selectedFileName;
-    // const anonymize_columns =
-    //   document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
-    
+    const anonymize_columns =
+      document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
+
     // Send file name and column name to backend
     const data = {
       file_name: fileName,
       column_name: columnNames,
-      anonymize_columns: anonymizedCols,
+      anonymize_columns: anonymize_columns,
     };
     console.log(data)
 
@@ -195,30 +199,30 @@ function AccessData() {
               </select>
             </div> */}
             <div className="mt-2 space-y-2">
-                  <div className="flex flex-wrap justify-between">
-                    {columnNames &&
-                      columnNames.map((item, idx) => {
-                        return (
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="checkbox"
-                              id={item}
-                              name="anonymizable-data"
-                              value={item}
-                              onChange={handleColsChange}
-                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded base-1/2"
-                            />
-                            <label
-                              htmlFor={item}
-                              className="text-sm font-medium text-gray-900 dark:text-slate-200"
-                            >
-                              {item}
-                            </label>
-                          </div>
-                        );})}
-                    </div>
-                  
-                </div>
+              <div className="flex flex-wrap justify-between">
+                {columnNames &&
+                  columnNames.map((item, idx) => {
+                    return (
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id={item}
+                          name="anonymizable-data"
+                          value={item}
+                          onChange={handleColsChange}
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        />
+                        <label
+                          htmlFor={item}
+                          className="text-sm font-medium text-gray-900 dark:text-slate-200"
+                        >
+                          {item}
+                        </label>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
 
           <button
