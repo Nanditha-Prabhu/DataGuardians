@@ -32,16 +32,16 @@ function AccessData() {
           window.location.reload();
         });
         setAccount(account);
-        // const provider = new ethers.providers.Web3Provider(ethereum);
-        // const signer = provider.getSigner();
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
 
-        // const contract = new ethers.Contract(
-        //   contractAddres,
-        //   contractABI,
-        //   signer
-        // );
-        // console.log(contract);
-        // setState({ provider, signer, contract });
+        const contract = new ethers.Contract(
+          contractAddres,
+          contractABI,
+          signer
+        );
+        console.log(contract);
+        setState({ provider, signer, contract });
 
         // Fetch file names from Flask backend
         const response = await axios.get("http://127.0.0.1:5000/fileNames");
@@ -57,20 +57,21 @@ function AccessData() {
     const { contract } = state;
     const name = document.querySelector("#file-name").value;
     const message = document.querySelector("#anonymizable-data").value;
-    // const amount = document.querySelector("#amount").value;
-    // const amount = { value: ethers.utils.parseEther("0.001") };
-    // const transaction = await contract.anonymize_file(name, message, amount);
-    // await transaction.wait();
-    // alert("Transaction is successul");
+    //const amount = document.querySelector("#amount").value;
+    const amount = { value: ethers.utils.parseEther("0.001") };
+    const transaction = await contract.anonymize_file(name, message, amount);
+    await transaction.wait();
+    alert("Transaction is successul");
 
     const fileName = selectedFileName;
-    const anonymize_columns = document.querySelector("#anonymizable-data").value;  // anonymizeColumns must be a list, it must contain list of columns to anonymize
+    const anonymize_columns =
+      document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
 
     // Send file name and column name to backend
     const data = {
       file_name: fileName,
       column_name: columnNames,
-      anonymize_columns: anonymize_columns 
+      anonymize_columns: anonymize_columns,
     };
 
     try {
@@ -84,7 +85,7 @@ function AccessData() {
           body: JSON.stringify(data),
         }
       );
-      console.log(response)
+      console.log(response);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -175,26 +176,33 @@ function AccessData() {
 
         {/* Start: Here, the output from the server is displayed */}
         <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-          <table
-            className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900"
-          >
+          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
             <thead className="ltr:text-left rtl:text-right">
               <tr>
                 {columnNames.map((keys, idx) => (
-                  <th key={idx} className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">{keys}</th>
+                  <th
+                    key={idx}
+                    className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200"
+                  >
+                    {keys}
+                  </th>
                 ))}
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {anonymizedData.map((data) => {
-                return <tr>
-                  {columnNames.map((key) => {
-                    return <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
-                      {data[key]}
-                    </td>
-                  })}
-                </tr>
+                return (
+                  <tr>
+                    {columnNames.map((key) => {
+                      return (
+                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                          {data[key]}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
               })}
             </tbody>
           </table>
