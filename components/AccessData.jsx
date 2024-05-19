@@ -100,14 +100,14 @@ function AccessData() {
     alert("Transaction is successul");
 
     const fileName = selectedFileName;
-    const anonymize_columns =
-      document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
+    // const anonymize_columns =
+    //   document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
 
     // Send file name and column name to backend
     const data = {
       file_name: fileName,
       column_name: columnNames,
-      anonymize_columns: anonymize_columns,
+      anonymize_columns: anonymizedCols,
     };
     console.log(data)
 
