@@ -3,12 +3,22 @@ import abi from "../contractJson/chai.json";
 import { ethers } from "ethers";
 import Memos from "./Memos";
 import axios from "axios"; // Import axios for making HTTP requests
-
+import { useAuth } from "../src/contexts/authContext/index";
+import { getAuth } from "firebase/auth";
 
 const baseUrl = "https://ariyal-ksp-datathon-backend.hf.space";
 
-
 function AccessData() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  let username = "";
+
+  if (user !== null) {
+    user.providerData.forEach((profile) => {
+      username = profile.displayName;
+    });
+  }
+
   const [state, setState] = useState({
     provider: null,
     signer: null,
@@ -70,19 +80,19 @@ function AccessData() {
     // Case 1 : The user checks the box
     if (checked) {
       if (!anonymizedCols.includes(value))
-        setAnonymizedCols(cols => [...cols, value])
-    } 
+        setAnonymizedCols((cols) => [...cols, value]);
+    }
 
     // Case 2  : The user unchecks the box
     else {
       const index = anonymizedCols.indexOf(value);
       if (index !== -1) {
         anonymizedCols.splice(index, 1);
-        setAnonymizedCols(anonymizedCols)
+        setAnonymizedCols(anonymizedCols);
       }
     }
-    console.log(anonymizedCols)
-  }
+    console.log(anonymizedCols);
+  };
 
   const buyChai = async (event) => {
     event.preventDefault();
@@ -106,19 +116,16 @@ function AccessData() {
       column_name: columnNames,
       anonymize_columns: anonymizedCols,
     };
-    console.log(data)
+    console.log(data);
 
     try {
-      const response = await fetch(
-        `${baseUrl}/anonymize-data`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${baseUrl}/anonymize-data`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       console.log(response);
       if (!response.ok) {
         throw new Error("Network response was not ok");
