@@ -99,10 +99,10 @@ function AccessData() {
     const { contract } = state;
     const name = document.querySelector("#file-name").value;
 
-    const message = document.querySelector("#anonymizable-data").value;
+    // const message = document.querySelector("#anonymizable-data").value;
     //const amount = document.querySelector("#amount").value;
     const amount = { value: ethers.utils.parseEther("0.001") };
-    const transaction = await contract.anonymize_file(name, message, amount);
+    const transaction = await contract.anonymize_file(name, "message", amount);
     await transaction.wait();
     alert("Transaction is successul");
 
@@ -152,6 +152,58 @@ function AccessData() {
     setColumnNames(response.data);
   };
 
+  const handleSearchChange = async (event) => {
+    const search = event.target.value;
+    if (search === "") {
+      const data = {
+        file_name: selectedFileName,
+        column_name: columnNames,
+        anonymize_columns: anonymizedCols,
+      };
+
+      try {
+        const response = await fetch(
+          `${baseUrl}/anonymize-data`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        console.log(response);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const responseData = await response.json();
+        console.log(responseData);
+        setAnonymizedData(responseData.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+      return
+    }
+    const data = {
+      file_name: selectedFileName,
+      column_name: columnNames,
+      anonymize_columns: anonymizedCols,
+      search_query: search,
+      search_index: selectedFileName + "_index",
+      limit: 50
+    }
+    const response = await fetch(`${baseUrl}/search`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    const res_data = await response.json();
+    console.log(res_data);
+    setAnonymizedData(res_data["data"])
+  }
   return (
     <>
       <div className="flex flex-col items-center">
@@ -191,7 +243,7 @@ function AccessData() {
               Data to be anonymized
             </label>
             <div className="mt-2 space-y-2">
-              <div className="flex flex-wrap justify-between">
+              <div className="justify-between grid grid-cols-2 gap-4">
                 {columnNames &&
                   columnNames.map((item, idx) => {
                     return (
@@ -202,7 +254,7 @@ function AccessData() {
                           name="anonymizable-data"
                           value={item}
                           onChange={handleColsChange}
-                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded base-1/2"
                         />
                         <label
                           htmlFor={item}
@@ -235,10 +287,11 @@ function AccessData() {
             id="search"
             name="search"
             className="block px-3 py-2 place-content-stretch justify-items-stretch w-full rounded-md border-1  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-slate-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            onChange={handleSearchChange}
           />
         </div>
         <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
+          <table className="max-w-lg divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
             <thead className="ltr:text-left rtl:text-right">
               <tr>
                 {columnNames.map((keys, idx) => (
@@ -253,7 +306,7 @@ function AccessData() {
             </thead>
 
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {anonymizedData.map((data) => {
+              {anonymizedData && anonymizedData.map((data) => {
                 return (
                   <tr>
                     {columnNames.map((key) => {
