@@ -98,13 +98,12 @@ function AccessData() {
     event.preventDefault();
     const { contract } = state;
     const name = document.querySelector("#file-name").value;
-
     const message = document.querySelector("#anonymizable-data").value;
     //const amount = document.querySelector("#amount").value;
     const amount = { value: ethers.utils.parseEther("0.001") };
     const transaction = await contract.anonymize_file(name, message, amount);
     await transaction.wait();
-    alert("Transaction is successul");
+    alert("Transaction is successful");
 
     const fileName = selectedFileName;
     // const anonymize_columns =
@@ -238,7 +237,7 @@ function AccessData() {
           />
         </div>
         <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
+          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-700">
             <thead className="ltr:text-left rtl:text-right">
               <tr>
                 {columnNames.map((keys, idx) => (

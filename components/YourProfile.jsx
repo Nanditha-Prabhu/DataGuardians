@@ -25,6 +25,7 @@ export default function YourProfile(){
           useremail = profile.email;
           photoUrl = profile.photoURL;
         });
+        console.log(user)
       }
 
     return (

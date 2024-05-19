@@ -8,9 +8,11 @@ export default function SignUp() {
 
   const navigate = useNavigate()
 
+  const usernameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setconfirmPassword] = useState('')
@@ -20,27 +22,65 @@ export default function SignUp() {
   const { userLoggedIn } = useAuth()
 
   const onSubmit = async (e) => {
-      e.preventDefault()
-
-      if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-        return setErrorMessage("Passwords do not match")
-      }
-
+    e.preventDefault();
+  
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+  
+    try {
+      setErrorMessage("");
+      setIsRegistering(true);
+      await userLoggedIn(usernameRef.current.value, emailRef.current.value, passwordRef.current.value); // Assuming this function checks authentication (optional)
+    } catch {
+      // Handle potential authentication errors (optional)
+    }
+  
+    setIsRegistering(false);
+  
+    if (!isRegistering) {
+      setIsRegistering(true);
       try {
-        setErrorMessage("")
-        setIsRegistering(true)
-        await userLoggedIn(emailRef.current.value, passwordRef.current.value)
-      } catch {
-        setErrorMessage("Failed to create an account. You might already have an account or something went wrong.")
+        await doCreateUserWithEmailAndPassword(
+          usernameRef.current.value,
+          emailRef.current.value,
+          passwordRef.current.value
+        );
+        console.log('User created successfully');
+      } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+          setErrorMessage('Email already in use. Please try a different email address.');
+        } else {
+          setErrorMessage('Failed to create an account. Please try again.');
+        }
       }
+    }
+  };
+  
 
-      setIsRegistering(false)
+  // const onSubmit = async (e) => {
+  //     e.preventDefault()
 
-      if(!isRegistering) {
-          setIsRegistering(true)
-          await doCreateUserWithEmailAndPassword(email, password)
-      }
-  }
+  //     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+  //       return setErrorMessage("Passwords do not match")
+  //     }
+
+  //     try {
+  //       setErrorMessage("")
+  //       setIsRegistering(true)
+  //       await userLoggedIn(usernameRef.current.value, emailRef.current.value, passwordRef.current.value)
+  //     } catch {
+  //       setErrorMessage("Failed to create an account. You might already have an account or something went wrong.")
+  //     }
+
+  //     setIsRegistering(false)
+
+  //     if(!isRegistering) {
+  //         setIsRegistering(true)
+  //         await doCreateUserWithEmailAndPassword(username, email, password)
+  //     }
+  // }
 
   return (
     <section>
@@ -63,20 +103,22 @@ export default function SignUp() {
             </p>
             <form onSubmit={onSubmit} action="#" method="POST" className="mt-8">
               <div className="space-y-5">
-                {/* <div>
+                <div>
                   <label htmlFor="name" className="text-base font-medium text-gray-900">
-                    {' '}
-                    Full Name{' '}
+                    Username
                   </label>
                   <div className="mt-2">
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="text"
-                      placeholder="Full Name"
+                      placeholder="Kapil Dev"
                       id="name"
+                      ref={usernameRef}
+                      required
+                      value={username} onChange={(e) => {setUsername(e.target.value)}}
                     ></input>
                   </div>
-                </div> */}
+                </div>
                 <div>
                   <label htmlFor="email" className="text-base font-medium text-gray-900">
                     Email address

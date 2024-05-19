@@ -12,59 +12,36 @@ const Memos = ({ state }) => {
     contract && memosMessage();
   }, [contract]);
   return (
-    <div className="container-fluid">
-      <h3 style={{ textAlign: "center", marginTop: "20px" }}>History</h3>
-      <table>
+    <div className="mx-auto max-w-screen-xl text-center">
+      <h3 className="text-xl bg-gray-700 font-bold sm:text-2xl py-8" >History</h3>
+      <table className=" w-full border-collapse">
+        <thead>
+          <th className=" border-2 text-white px-3  py-10">Filename</th>
+          <th className=" border-2 text-white px-3  py-10">Timestamp</th>
+          <th className=" border-2 text-white px-3  py-10">Column name</th>
+          <th className=" border-2 text-white px-3  py-10">User ID</th>
+        </thead>
         <tbody>
           {memos.map((memo) => {
             return (
               <tr>
                 <td
-                  style={{
-                    backgroundColor: "dodgerblue",
-                    border: "1px solid white",
-                    borderCollapse: "collapse",
-                    padding: "7px",
-                    width: "100px",
-                    color: "white",
-                  }}
+                  className=" border-2 px-3 text-slate-100 py-10 text-left"
                 >
                   {memo.name}
                 </td>
                 <td
-                  style={{
-                    backgroundColor: "dodgerblue",
-                    border: "1px solid white",
-                    borderCollapse: "collapse",
-                    padding: "7px",
-                    width: "800px",
-                    color: "white",
-                  }}
+                  className=" border-2 px-3 text-slate-100 py-10 text-left"
                 >
                   {new Date(memo.timestamp * 1000).toLocaleString()}
                 </td>
                 <td
-                  style={{
-                    backgroundColor: "dodgerblue",
-                    border: "1px solid white",
-                    borderCollapse: "collapse",
-                    padding: "7px",
-                    width: "300px",
-                    color: "white",
-                  }}
+                  className=" border-2 px-3 text-slate-100 py-10 text-left"
                 >
                   {memo.column_name}
                 </td>
                 <td
-                  className="container-fluid"
-                  style={{
-                    backgroundColor: "dodgerblue",
-                    border: "1px solid white",
-                    borderCollapse: "collapse",
-                    padding: "7px",
-                    width: "400px",
-                    color: "white",
-                  }}
+                  className=" border-2 px-3 text-slate-100 py-10 text-left"
                 >
                   {memo.from}
                 </td>
