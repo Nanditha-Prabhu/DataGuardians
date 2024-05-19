@@ -186,18 +186,6 @@ function AccessData() {
             >
               Data to be anonymized
             </label>
-            {/* <div>
-              <select
-                id="anonymizable-data"
-                name="anonymizable-data"
-                autoComplete="anonymizable-data"
-                className="block px-3 py-2 w-full rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                {columnNames.map((key, index) => (
-                  <option key={index}>{key}</option>
-                ))}
-              </select>
-            </div> */}
             <div className="mt-2 space-y-2">
               <div className="flex flex-wrap justify-between">
                 {columnNames &&
