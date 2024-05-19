@@ -5,12 +5,13 @@ const Memos = ({ state }) => {
   const { contract } = state;
   useEffect(() => {
     const memosMessage = async () => {
-      const memos = await contract.getmemos();
+      const memos = await contract.getMemos();
       setMemos(memos);
       //console.log(memos)
     };
     contract && memosMessage();
   }, [contract]);
+
   return (
     <div className="mx-auto max-w-screen-xl text-center">
       <h3 className="text-xl bg-gray-700 font-bold sm:text-2xl py-8" >History</h3>
@@ -53,4 +54,5 @@ const Memos = ({ state }) => {
     </div>
   );
 };
+
 export default Memos;
