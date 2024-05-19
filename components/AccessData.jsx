@@ -69,23 +69,20 @@ function AccessData() {
 
     // Case 1 : The user checks the box
     if (checked) {
-
-      cols = value;
-      anonymizedCols.push(cols);
-      setAnonymizedCols(cols);
-    }
+      if (!anonymizedCols.includes(value))
+        setAnonymizedCols(cols => [...cols, value])
+    } 
 
     // Case 2  : The user unchecks the box
     else {
-      cols = value;
-      const index = anonymizedCols.indexOf(cols);
+      const index = anonymizedCols.indexOf(value);
       if (index !== -1) {
         anonymizedCols.splice(index, 1);
         setAnonymizedCols(anonymizedCols)
       }
     }
-    console.log(anonymizedCols);
-  };
+    console.log(anonymizedCols)
+  }
 
   const buyChai = async (event) => {
     event.preventDefault();
