@@ -100,7 +100,6 @@ function AccessData() {
     const fileName = selectedFileName;
     // const name = document.querySelector("#file-name").value;
 
-
     console.log(anonymizedCols);
     //const amount = document.querySelector("#amount").value;
     const amount = { value: ethers.utils.parseEther("0.001") };
@@ -112,6 +111,7 @@ function AccessData() {
     );
 
     await transaction.wait();
+    console.log(transaction);
     alert("Transaction is successul");
 
     // const anonymize_columns =
@@ -169,16 +169,13 @@ function AccessData() {
       };
 
       try {
-        const response = await fetch(
-          `${baseUrl}/anonymize-data`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
+        const response = await fetch(`${baseUrl}/anonymize-data`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
         console.log(response);
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -190,7 +187,7 @@ function AccessData() {
       } catch (error) {
         console.error("Error:", error);
       }
-      return
+      return;
     }
     const data = {
       file_name: selectedFileName,
@@ -198,19 +195,19 @@ function AccessData() {
       anonymize_columns: anonymizedCols,
       search_query: search,
       search_index: selectedFileName + "_index",
-      limit: 50
-    }
+      limit: 50,
+    };
     const response = await fetch(`${baseUrl}/search`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
     const res_data = await response.json();
     console.log(res_data);
-    setAnonymizedData(res_data["data"])
-  }
+    setAnonymizedData(res_data["data"]);
+  };
   return (
     <>
       <div className="flex flex-col items-center">
@@ -313,19 +310,20 @@ function AccessData() {
             </thead>
 
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {anonymizedData && anonymizedData.map((data) => {
-                return (
-                  <tr>
-                    {columnNames.map((key) => {
-                      return (
-                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
-                          {data[key]}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
+              {anonymizedData &&
+                anonymizedData.map((data) => {
+                  return (
+                    <tr>
+                      {columnNames.map((key) => {
+                        return (
+                          <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                            {data[key]}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
