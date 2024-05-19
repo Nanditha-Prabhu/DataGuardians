@@ -15,11 +15,11 @@ export default function YourProfile(){
 
     if (user !== null) {
         user.providerData.forEach((profile) => {
-          console.log("Sign-in provider: " + profile.providerId);
-          console.log("  Provider-specific UID: " + profile.uid);
-          console.log("  Name: " + profile.displayName);
-          console.log("  Email: " + profile.email);
-          console.log("  Photo URL: " + profile.photoURL);
+        //   console.log("Sign-in provider: " + profile.providerId);
+        //   console.log("  Provider-specific UID: " + profile.uid);
+        //   console.log("  Name: " + profile.displayName);
+        //   console.log("  Email: " + profile.email);
+        //   console.log("  Photo URL: " + profile.photoURL);
           signInProvider = profile.providerId;
           username = profile.displayName;
           useremail = profile.email;
@@ -52,7 +52,7 @@ export default function YourProfile(){
         </div>
         ):(
             <div className=" flex flex-col  items-center ">
-                <div className="p-8 sm:p-20 w-3/6">
+                <div className="p-8 sm:p-20 w-3/6 text-center">
                 <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl mb-8">You are not Signed In yet.</h2>
                 </div>
             </div>
