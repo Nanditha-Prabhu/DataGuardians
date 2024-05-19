@@ -157,7 +157,8 @@ function Navbar() {
               : navigationBefore.map((item) => (
                 <Disclosure.Button
                   key={item.name}
-                  to={item.href}
+                  as="a"
+                  href={item.href}
                   className={classNames(
                     item.href === location.pathname
                       ? "bg-gray-900 text-white"
