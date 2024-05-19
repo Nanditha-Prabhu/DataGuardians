@@ -16,6 +16,70 @@ const Memos = ({ state }) => {
     <div className="container-fluid">
       <h3 style={{ textAlign: "center", marginTop: "20px" }}>History</h3>
       <table>
+        <thead>
+          <tr>
+            <th
+              style={{
+                backgroundColor: "dodgerblue",
+                border: "1px solid white",
+                borderCollapse: "collapse",
+                padding: "7px",
+                width: "100px",
+                color: "white",
+              }}
+            >
+              USER NAME
+            </th>
+            <th
+              style={{
+                backgroundColor: "dodgerblue",
+                border: "1px solid white",
+                borderCollapse: "collapse",
+                padding: "7px",
+                width: "100px",
+                color: "white",
+              }}
+            >
+              FILE NAME
+            </th>
+            <th
+              style={{
+                backgroundColor: "dodgerblue",
+                border: "1px solid white",
+                borderCollapse: "collapse",
+                padding: "7px",
+                width: "100px",
+                color: "white",
+              }}
+            >
+              ANONYMIZED COLUMN NAME
+            </th>
+            <th
+              style={{
+                backgroundColor: "dodgerblue",
+                border: "1px solid white",
+                borderCollapse: "collapse",
+                padding: "7px",
+                width: "100px",
+                color: "white",
+              }}
+            >
+              TIME AND DATE
+            </th>
+            <th
+              style={{
+                backgroundColor: "dodgerblue",
+                border: "1px solid white",
+                borderCollapse: "collapse",
+                padding: "7px",
+                width: "100px",
+                color: "white",
+              }}
+            >
+              BLOCKCHAIN HASH
+            </th>
+          </tr>
+        </thead>
         <tbody>
           {memos.map((memo, index) => (
             <tr key={index}>
