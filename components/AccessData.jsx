@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import abi from "../contractJson/chai.json";
+import abi from "../contractJson/anonymize.json";
 import { ethers } from "ethers";
 import Memos from "./Memos";
 import axios from "axios"; // Import axios for making HTTP requests
@@ -37,7 +37,7 @@ function AccessData() {
 
   useEffect(() => {
     const template = async () => {
-      const contractAddres = "0x4A477A2a0012eC1274a736FB3921C6EA2eAD357c";
+      const contractAddres = "0xD6C7e6F67960261121c3d2388eeE9e785E916BC2";
       const contractABI = abi.abi;
 
       try {
@@ -65,6 +65,7 @@ function AccessData() {
         const response = await axios.get(`${baseUrl}/fileNames`);
         setFileNames(response.data);
       } catch (error) {
+        alert("Create a metamask account");
         console.log(error);
       }
     };
@@ -91,22 +92,28 @@ function AccessData() {
         setAnonymizedCols(anonymizedCols);
       }
     }
-    console.log(anonymizedCols);
   };
 
   const buyChai = async (event) => {
     event.preventDefault();
     const { contract } = state;
-    const name = document.querySelector("#file-name").value;
+    const fileName = selectedFileName;
+    // const name = document.querySelector("#file-name").value;
 
-    // const message = document.querySelector("#anonymizable-data").value;
+
+    console.log(anonymizedCols);
     //const amount = document.querySelector("#amount").value;
     const amount = { value: ethers.utils.parseEther("0.001") };
-    const transaction = await contract.anonymize_file(name, "message", amount);
+    const transaction = await contract.anonymize_columns(
+      username,
+      selectedFileName,
+      anonymizedCols,
+      amount
+    );
+
     await transaction.wait();
     alert("Transaction is successul");
 
-    const fileName = selectedFileName;
     // const anonymize_columns =
     //   document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
 

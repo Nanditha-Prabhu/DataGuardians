@@ -5,7 +5,7 @@ const Memos = ({ state }) => {
   const { contract } = state;
   useEffect(() => {
     const memosMessage = async () => {
-      const memos = await contract.getmemos();
+      const memos = await contract.getMemos();
       setMemos(memos);
       //console.log(memos)
     };
@@ -29,7 +29,7 @@ const Memos = ({ state }) => {
                     color: "white",
                   }}
                 >
-                  {memo.name}
+                  {memo.user_name}
                 </td>
                 <td
                   style={{
@@ -37,11 +37,11 @@ const Memos = ({ state }) => {
                     border: "1px solid white",
                     borderCollapse: "collapse",
                     padding: "7px",
-                    width: "800px",
+                    width: "100px",
                     color: "white",
                   }}
                 >
-                  {new Date(memo.timestamp * 1000).toLocaleString()}
+                  {memo.file_name}
                 </td>
                 <td
                   style={{
@@ -54,6 +54,18 @@ const Memos = ({ state }) => {
                   }}
                 >
                   {memo.column_name}
+                </td>
+                <td
+                  style={{
+                    backgroundColor: "dodgerblue",
+                    border: "1px solid white",
+                    borderCollapse: "collapse",
+                    padding: "7px",
+                    width: "800px",
+                    color: "white",
+                  }}
+                >
+                  {new Date(memo.timestamp * 1000).toLocaleString()}
                 </td>
                 <td
                   className="container-fluid"
