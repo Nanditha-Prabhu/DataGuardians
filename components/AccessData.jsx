@@ -18,6 +18,8 @@ function AccessData() {
   const [columnNames, setColumnNames] = useState([]); // prev -> anonymizableKeys, Update -> columnNames
   // AnonymizedData contains data that received from backend after anonymizing the req data
   const [anonymizedData, setAnonymizedData] = useState([]);
+  // list of columns that must be anonymized.
+  const [anonymizedCols, setAnonymizedCols] = useState([]);
 
   useEffect(() => {
     const template = async () => {
@@ -54,6 +56,33 @@ function AccessData() {
     };
     template();
   }, []);
+
+  const handleColsChange = (e) => {
+    // console.log(e)
+    // Destructuring
+    const { value, checked } = e.target;
+    let { cols } = "";
+
+    console.log(`${value} is ${checked}`);
+
+    // Case 1 : The user checks the box
+    if (checked) {
+      cols = value
+      anonymizedCols.push(cols)
+      setAnonymizedCols(cols)
+    }
+
+    // Case 2  : The user unchecks the box
+    else {
+      cols = value
+      const index = anonymizedCols.indexOf(cols);
+      if (index !== -1) {
+        anonymizedCols.splice(index, 1);
+      }
+    }
+    console.log(anonymizedCols)
+  }
+
   const buyChai = async (event) => {
     event.preventDefault();
     const { contract } = state;
@@ -66,14 +95,14 @@ function AccessData() {
     // alert("Transaction is successul");
 
     const fileName = selectedFileName;
-    const anonymize_columns =
-      document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
-
+    // const anonymize_columns =
+    //   document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
+    
     // Send file name and column name to backend
     const data = {
       file_name: fileName,
       column_name: columnNames,
-      anonymize_columns: anonymize_columns,
+      anonymize_columns: anonymizedCols,
     };
 
     try {
@@ -152,7 +181,7 @@ function AccessData() {
             >
               Data to be anonymized
             </label>
-            <div>
+            {/* <div>
               <select
                 id="anonymizable-data"
                 name="anonymizable-data"
@@ -163,7 +192,32 @@ function AccessData() {
                   <option key={index}>{key}</option>
                 ))}
               </select>
-            </div>
+            </div> */}
+            <div className="mt-2 space-y-2">
+                  <div className="flex flex-wrap justify-between">
+                    {columnNames &&
+                      columnNames.map((item, idx) => {
+                        return (
+                          <div className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id={item}
+                              name="anonymizable-data"
+                              value={item}
+                              onChange={handleColsChange}
+                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                            />
+                            <label
+                              htmlFor={item}
+                              className="text-sm font-medium text-gray-900 dark:text-slate-200"
+                            >
+                              {item}
+                            </label>
+                          </div>
+                        );})}
+                    </div>
+                  
+                </div>
           </div>
 
           <button

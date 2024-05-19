@@ -155,7 +155,7 @@ export default function SignIn() {
       </>
       ):(
         <div className=" flex flex-col  items-center ">
-            <div className="p-8 sm:p-20 w-3/6">
+            <div className="p-8 sm:p-20 w-3/6 text-center">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl mb-8">You are already Signed In.</h2>
             </div>
         </div>
