@@ -4,6 +4,10 @@ import { ethers } from "ethers";
 import Memos from "./Memos";
 import axios from "axios"; // Import axios for making HTTP requests
 
+
+const baseUrl = "https://ariyal-ksp-datathon-backend.hf.space";
+
+
 function AccessData() {
   const [state, setState] = useState({
     provider: null,
@@ -48,7 +52,7 @@ function AccessData() {
         // setState({ provider, signer, contract });
 
         // Fetch file names from Flask backend
-        const response = await axios.get("http://127.0.0.1:5000/fileNames");
+        const response = await axios.get(`${baseUrl}/fileNames`);
         setFileNames(response.data);
       } catch (error) {
         console.log(error);
@@ -61,23 +65,20 @@ function AccessData() {
     // console.log(e)
     // Destructuring
     const { value, checked } = e.target;
-    let { cols } = "";
-
     console.log(`${value} is ${checked}`);
 
     // Case 1 : The user checks the box
     if (checked) {
-      cols = value
-      anonymizedCols.push(cols)
-      setAnonymizedCols(cols)
-    }
+      if (!anonymizedCols.includes(value))
+        setAnonymizedCols(cols => [...cols, value])
+    } 
 
     // Case 2  : The user unchecks the box
     else {
-      cols = value
-      const index = anonymizedCols.indexOf(cols);
+      const index = anonymizedCols.indexOf(value);
       if (index !== -1) {
         anonymizedCols.splice(index, 1);
+        setAnonymizedCols(anonymizedCols)
       }
     }
     console.log(anonymizedCols)
@@ -87,7 +88,7 @@ function AccessData() {
     event.preventDefault();
     const { contract } = state;
     const name = document.querySelector("#file-name").value;
-    const message = document.querySelector("#anonymizable-data").value;
+    // const message = document.querySelector("#anonymizable-data").value;
     // const amount = document.querySelector("#amount").value;
     // const amount = { value: ethers.utils.parseEther("0.001") };
     // const transaction = await contract.anonymize_file(name, message, amount);
@@ -104,10 +105,11 @@ function AccessData() {
       column_name: columnNames,
       anonymize_columns: anonymizedCols,
     };
+    console.log(data)
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/display-anonymized-data",
+        `${baseUrl}/anonymize-data`,
         {
           method: "POST",
           headers: {
@@ -135,10 +137,9 @@ function AccessData() {
   const handleFileSelect = async (event) => {
     const selectedFile = event.target.value;
     setSelectedFileName(selectedFile);
-
     // Fetch anonymizable keys for the selected file from Flask backend
     const response = await axios.get(
-      `http://127.0.0.1:5000/columnNames?fileName=${selectedFile}`
+      `${baseUrl}/columnNames?fileName=${selectedFile}`
     );
     setColumnNames(response.data);
   };
@@ -205,7 +206,7 @@ function AccessData() {
                               name="anonymizable-data"
                               value={item}
                               onChange={handleColsChange}
-                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded base-1/2"
                             />
                             <label
                               htmlFor={item}
