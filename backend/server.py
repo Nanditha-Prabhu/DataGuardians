@@ -84,6 +84,9 @@ def display_anonymized_data():
             )
         client.close()
         print(anonymized_data)
+        anonymized_db = client['KSP-DataGuardians-Anonymized']
+        anonymized_collection = anonymized_db[data['file_name']]  # Use the same collection name
+        anonymized_collection.insert_many(anonymized_data)
     except Exception as e:
         print(f"Error: {e}")
     finally:
