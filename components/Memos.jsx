@@ -14,8 +14,8 @@ const Memos = ({ state }) => {
 
   return (
     <div className="mx-auto max-w-screen-xl text-center">
-      <h3 className="text-xl bg-gray-700 font-bold sm:text-2xl py-8" >History</h3>
-      <table className=" w-full border-collapse">
+      <h3 className="text-xl  font-bold sm:text-2xl py-8" >History</h3>
+      <table className=" bg-gray-700 w-full border-collapse">
         <thead>
           <th className=" border-2 text-white px-3  py-10">Filename</th>
           <th className=" border-2 text-white px-3  py-10">Timestamp</th>

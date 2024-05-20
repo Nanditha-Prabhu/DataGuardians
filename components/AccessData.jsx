@@ -231,6 +231,7 @@ function AccessData() {
                 className="block px-3 py-2 place-content-stretch justify-items-stretch w-full rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 onChange={handleFileSelect}
               >
+                <option key="">Select the file-name</option>
                 {fileNames.map((fileName, index) => (
                   <option key={index}>{fileName}</option>
                 ))}
