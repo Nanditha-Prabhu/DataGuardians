@@ -34,8 +34,11 @@ export default function YourProfile(){
         <div className=" flex flex-col  items-center ">
             <div className="p-8 sm:p-36 w-3/6">
         <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl mb-8">Your Profile.</h2>
-        <div>
+        <div> 
+            {photoUrl ? (
             <img className=" rounded-full mb-2" src={photoUrl} alt="User's profile picture" />
+            ) : (<p></p>)
+            }
             <p> <span className=" font-semibold">Sign In provider:</span> {signInProvider}</p>
             <p><span className=" font-semibold">Name:</span> {username}</p>
             <p><span className=" font-semibold">Email ID:</span> {useremail}</p>

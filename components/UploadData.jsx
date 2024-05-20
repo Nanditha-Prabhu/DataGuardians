@@ -1,8 +1,12 @@
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
+import { useAuth } from "../src/contexts/authContext/index";
+import { Navigate } from 'react-router-dom'
 
 
 function UploadData() {
+
+  const { userLoggedIn } = useAuth(); //Route protection
   const [file, setFile] = useState(null);
 
   const handleFileUpload = (event) => {
@@ -31,6 +35,10 @@ function UploadData() {
 
   return (
     <>
+    {/* Route protection */}
+    {!userLoggedIn && (<Navigate to={'/'} replace={true} />)}
+
+    {/* UI code */}
     <div className="flex flex-col items-center " >
       <div className=" bg-gray-700 border-4 m-7 p-7 text-white rounded-lg grid grid-cols-1 w-3/6 justify-center items-center ">
         <div className=" font-semibold text-2xl">Upload Data</div>
