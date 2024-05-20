@@ -51,6 +51,8 @@ export default function SignUp() {
       } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
           setErrorMessage('Email already in use. Please try a different email address.');
+        } else if(error.code === 'auth/weak-password') {
+          setErrorMessage('Password must have more than 6 characters.');
         } else {
           setErrorMessage('Failed to create an account. Please try again.');
         }

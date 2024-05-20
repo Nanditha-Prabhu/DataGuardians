@@ -5,10 +5,13 @@ import Memos from "./Memos";
 import axios from "axios"; // Import axios for making HTTP requests
 import { useAuth } from "../src/contexts/authContext/index";
 import { getAuth } from "firebase/auth";
+import { Navigate } from 'react-router-dom'
 
 const baseUrl = "https://ariyal-ksp-datathon-backend.hf.space";
 
 function AccessData() {
+
+  const { userLoggedIn } = useAuth(); //Route protection
   const auth = getAuth();
   const user = auth.currentUser;
   let username = "";
@@ -111,7 +114,7 @@ function AccessData() {
     );
 
     await transaction.wait();
-    alert("Transaction is successul");
+    alert("Transaction is successful");
 
     // const anonymize_columns =
     //   document.querySelector("#anonymizable-data").value; // anonymizeColumns must be a list, it must contain list of columns to anonymize
@@ -209,6 +212,9 @@ function AccessData() {
   };
   return (
     <>
+    {/* Route protection */}
+    {!userLoggedIn && (<Navigate to={'/'} replace={true} />)}
+    {/* UI code */}
       <div className="flex flex-col items-center">
         {/* Starts: Taking info from user, like what to display and which file to display */}
         <form
@@ -294,7 +300,7 @@ function AccessData() {
             onChange={handleSearchChange}
           />
         </div>
-        <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className=" max-w-lg h-2/5 overflow-x-scroll rounded-lg border border-gray-200 dark:border-gray-700">
           <table className="max-w-lg divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
             <thead className="ltr:text-left rtl:text-right">
               <tr>
