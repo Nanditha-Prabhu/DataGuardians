@@ -305,7 +305,7 @@ function AccessData() {
           <h3 className="text-xl  font-bold sm:text-2xl py-8">Data Requested</h3>
         </div>
 
-        <div className=" max-w-5xl max-h-96 overflow-x-scroll rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className=" max-w-64 md:max-w-80  lg:max-w-5xl max-h-96 overflow-x-scroll rounded-lg border border-gray-200 dark:border-gray-700">
           <table className=" divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-700">
             <thead className=" bg-gray-900 ltr:text-left rtl:text-right">
               <tr>

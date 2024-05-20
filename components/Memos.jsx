@@ -16,7 +16,7 @@ const Memos = ({ state }) => {
     <>
       <div className=" text-center">
         <h3 className="text-xl  font-bold sm:text-2xl py-8">Transaction History</h3>
-        <div className="max-w-5xl max-h-96 overflow-x-scroll rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className=" max-w-64 md:max-w-80  lg:max-w-5xl max-h-96 overflow-x-scroll rounded-lg border border-gray-200 dark:border-gray-700">
           <table className=" divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-700">
             <thead>
               <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">Filename</th>
