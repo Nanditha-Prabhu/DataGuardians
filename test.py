@@ -1,28 +1,27 @@
-import os
 from pymongo import MongoClient
-from dotenv import load_dotenv
 
-# Connect to MongoDB
-client = MongoClient(os.getenv('MONGO_URL'))
-db = client['KSP_ANONYMIZED_DATABASE']  # Change this to your database name
-collection = db['names']  # Change this to your collection name
+# Connection details
+source_client = MongoClient('mongodb+srv://satwikroopa:Roopa70263@fruitdb.8sxipgz.mongodb.net/?retryWrites=true&w=majority&appName=FruitDb')
+destination_client = MongoClient('mongodb+srv://satwikroopa:Roopa70263@fruitdb.8sxipgz.mongodb.net/?retryWrites=true&w=majority&appName=FruitDb')
 
-# Provided data
-data = [
-    {"First Name": "John", "Last Name": "Smith", "Middle Name": "Doe"},
-    {"First Name": "Jane", "Last Name": "Brown", "Middle Name": "<PERSON>"},
-    {"First Name": "Michael", "Last Name": "Johnson", "Middle Name": "<PERSON>"},
-    {"First Name": "Emily", "Last Name": "Wilson", "Middle Name": "<PERSON>"},
-    {"First Name": "David", "Last Name": "Taylor", "Middle Name": "<PERSON>"},
-    {"First Name": "Sarah", "Last Name": "Miller", "Middle Name": "<PERSON>"},
-    {"First Name": "Daniel", "Last Name": "Davis", "Middle Name": "<PERSON>"},
-    {"First Name": "Olivia", "Last Name": "Anderson", "Middle Name": "Rose"},
-    {"First Name": "William", "Last Name": "Martinez", "Middle Name": "<PERSON>"},
-    {"First Name": "Sophia", "Last Name": "Garcia", "Middle Name": "<PERSON>"}
-]
+# Source and destination databases
+source_db = source_client['KSP_DATABASE']
+destination_db = destination_client['KSP-DataGuardians']
 
-# Insert data into MongoDB collection
-collection.insert_many(data)
+# Get a list of all collections in the source database
+collections = source_db.list_collection_names()
 
-# Close connection
-client.close()
+for collection_name in collections:
+    # Get the source collection
+    source_collection = source_db[collection_name]
+    
+    # Get the destination collection
+    destination_collection = destination_db[collection_name]
+
+    # Copy all documents from source collection to destination collection
+    documents = source_collection.find()
+    destination_collection.insert_many(documents)
+
+    print(f"Transferred {source_collection.count_documents({})} documents from collection '{collection_name}'")
+
+print("All collections have been transferred.")
