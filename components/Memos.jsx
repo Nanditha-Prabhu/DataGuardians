@@ -23,32 +23,75 @@ const Memos = ({ state }) => {
           <th className=" border-2 text-white px-3  py-10">User ID</th>
         </thead>
         <tbody>
-          {memos.map((memo) => {
-            return (
-              <tr>
-                <td
-                  className=" border-2 px-3 text-slate-100 py-10 text-left"
-                >
-                  {memo.name}
-                </td>
-                <td
-                  className=" border-2 px-3 text-slate-100 py-10 text-left"
-                >
-                  {new Date(memo.timestamp * 1000).toLocaleString()}
-                </td>
-                <td
-                  className=" border-2 px-3 text-slate-100 py-10 text-left"
-                >
-                  {memo.column_name}
-                </td>
-                <td
-                  className=" border-2 px-3 text-slate-100 py-10 text-left"
-                >
-                  {memo.from}
-                </td>
-              </tr>
-            );
-          })}
+          {memos.map((memo, index) => (
+            <tr key={index}>
+              <td
+                style={{
+                  backgroundColor: "dodgerblue",
+                  border: "1px solid white",
+                  borderCollapse: "collapse",
+                  padding: "7px",
+                  width: "100px",
+                  color: "white",
+                }}
+              >
+                {memo.user_name}
+              </td>
+              <td
+                style={{
+                  backgroundColor: "dodgerblue",
+                  border: "1px solid white",
+                  borderCollapse: "collapse",
+                  padding: "7px",
+                  width: "100px",
+                  color: "white",
+                }}
+              >
+                {memo.file_name}
+              </td>
+              <td
+                style={{
+                  backgroundColor: "dodgerblue",
+                  border: "1px solid white",
+                  borderCollapse: "collapse",
+                  padding: "7px",
+                  width: "300px",
+                  color: "white",
+                }}
+              >
+                {memo.column_names.join(", ")}
+                {/* If you need more complex formatting, you can use something like:
+                {memo.column_name.map((name, idx) => (
+                  <span key={idx}>{name}</span>
+                ))} */}
+              </td>
+              <td
+                style={{
+                  backgroundColor: "dodgerblue",
+                  border: "1px solid white",
+                  borderCollapse: "collapse",
+                  padding: "7px",
+                  width: "800px",
+                  color: "white",
+                }}
+              >
+                {new Date(memo.timestamp * 1000).toLocaleString()}
+              </td>
+              <td
+                className="container-fluid"
+                style={{
+                  backgroundColor: "dodgerblue",
+                  border: "1px solid white",
+                  borderCollapse: "collapse",
+                  padding: "7px",
+                  width: "400px",
+                  color: "white",
+                }}
+              >
+                {memo.from}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
