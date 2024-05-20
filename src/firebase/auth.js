@@ -3,19 +3,11 @@ import {app,auth} from "./firebase";
 import { initializeApp } from "firebase/app";
 import { getFirestore, addDoc, updateDoc, collection, doc, setDoc } from "firebase/firestore"; 
 
-const db = getFirestore();
 
-async function updateUserRole(userId, role) {
-    const userRef = doc(collection(db, "users"), userId); // Assuming users collection
-  
-    try {
-      await updateDoc(userRef, { role }); // Update 'role' field in user document
-      console.log('User role updated successfully');
-    } catch (error) {
-      console.error('Error updating user role:', error);
-    }
-  }
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
 
+// seedha function-just for email+pwd
 // export const doCreateUserWithEmailAndPassword = async (username,email,password)=>{
 //     return createUserWithEmailAndPassword(auth,username,email,password);
 // };
@@ -35,11 +27,17 @@ export const doCreateUserWithEmailAndPassword = async (username,email,password,p
             profile.displayName = username;
         })        
         // console.log(user)
-        // Update the Firestore document with the user's role
-        await updateUserRole(user.uid, personRole);
-        console.log('User role updated');
 
+        // Update the Firestore document with the user's role
+        const d = await setDoc(doc(db, "roles", user.uid), {
+          username: user.displayName,
+          role: personRole
+        });
+        console.log('User role updated');
+        
+        //sending verification mail to user
         await sendEmailVerification(user);
+
         // Return the user object (optional, depending on your needs)
         return user;
       } catch (error) {

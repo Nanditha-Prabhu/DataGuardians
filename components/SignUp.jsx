@@ -180,9 +180,9 @@ export default function SignUp() {
                         setRole(e.target.value);
                       }}
                     >
-                      <option key="">Select your role</option>
-                      <option key="ADMIN">Admin</option>
-                      <option key="USER">User</option>
+                      <option value="">Select your role</option>
+                      <option value="ADMIN">Admin</option>
+                      <option value="USER">User</option>
                     </select>
                   </div>
                 </div>
