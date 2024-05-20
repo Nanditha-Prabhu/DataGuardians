@@ -128,7 +128,7 @@ function AccessData() {
     console.log(data);
 
     try {
-      const response = await fetch(`${baseUrl}/anonymize-data?user=ADMIN`, {
+      const response = await fetch(`${baseUrl}/anonymize-data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
