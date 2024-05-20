@@ -300,10 +300,30 @@ function AccessData() {
             onChange={handleSearchChange}
           />
         </div>
-        <div className=" max-w-lg h-2/5 overflow-x-scroll rounded-lg border border-gray-200 dark:border-gray-700">
-          <table className="max-w-lg divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
-            <thead className="ltr:text-left rtl:text-right">
+
+        <div className="text-center">
+          <h3 className="text-xl  font-bold sm:text-2xl py-8">Data Requested</h3>
+        </div>
+
+        <div className=" max-w-5xl max-h-96 overflow-x-scroll rounded-lg border border-gray-200 dark:border-gray-700">
+          <table className=" divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-700">
+            <thead className=" bg-gray-900 ltr:text-left rtl:text-right">
               <tr>
+                {/* test headers */}
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit1</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit2</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit3</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit4</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit5</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit6</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit7</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit1</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit2</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit3</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit4</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit5</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit6</th>
+                <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">fruit7</th>
                 {columnNames.map((keys, idx) => (
                   <th
                     key={idx}
@@ -316,6 +336,231 @@ function AccessData() {
             </thead>
 
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                {/* test data */}
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
+              <tr>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">apple</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">mango</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">grapes</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">coconut</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">banana</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">strawberry</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">starfruit</td>
+              </tr>
               {anonymizedData &&
                 anonymizedData.map((data) => {
                   return (

@@ -13,52 +13,46 @@ const Memos = ({ state }) => {
   }, [contract]);
 
   return (
-    <div className="mx-auto max-w-screen-xl text-center">
-      <h3 className="text-xl  font-bold sm:text-2xl py-8" >History</h3>
-      <table className=" bg-gray-700 w-full border-collapse">
-        <thead>
-          <th className=" border-2 text-white px-3  py-10">Filename</th>
-          <th className=" border-2 text-white px-3  py-10">Timestamp</th>
-          <th className=" border-2 text-white px-3  py-10">Column name</th>
-          <th className=" border-2 text-white px-3  py-10">User ID</th>
-        </thead>
-        <tbody>
-          {memos.map((memo, index) => (
-            <tr key={index}>
-              <td
-                className=" border-2 px-3 text-slate-100 py-10 text-left"
-              >
-                {memo.user_name}
-              </td>
-              <td
-                className=" border-2 px-3 text-slate-100 py-10 text-left"
-              >
-                {memo.file_name}
-              </td>
-              <td
-                className=" border-2 px-3 text-slate-100 py-10 text-left"
-              >
-                {memo.column_names.join(", ")}
-                {/* If you need more complex formatting, you can use something like:
+    <>
+      <div className=" text-center">
+        <h3 className="text-xl  font-bold sm:text-2xl py-8">Transaction History</h3>
+        <div className="max-w-5xl max-h-96 overflow-x-scroll rounded-lg border border-gray-200 dark:border-gray-700">
+          <table className=" divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-700">
+            <thead>
+              <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">Filename</th>
+              <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">Timestamp</th>
+              <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">Column name</th>
+              <th className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">User ID</th>
+            </thead>
+            <tbody>
+              {memos.map((memo, index) => (
+                <tr key={index}>
+                  <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                    {memo.user_name}
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                    {memo.file_name}
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                    {memo.column_names.join(", ")}
+                    {/* If you need more complex formatting, you can use something like:
                 {memo.column_name.map((name, idx) => (
                   <span key={idx}>{name}</span>
                 ))} */}
-              </td>
-              <td
-                className=" border-2 px-3 text-slate-100 py-10 text-left"
-              >
-                {new Date(memo.timestamp * 1000).toLocaleString()}
-              </td>
-              <td
-                className=" border-2 px-3 text-slate-100 py-10 text-left"
-              >
-                {memo.from}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                    {new Date(memo.timestamp * 1000).toLocaleString()}
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                    {memo.from}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
   );
 };
 
