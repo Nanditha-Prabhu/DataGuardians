@@ -6,6 +6,9 @@ import axios from "axios"; // Import axios for making HTTP requests
 import { useAuth } from "../src/contexts/authContext/index";
 import { getAuth } from "firebase/auth";
 import { Navigate } from 'react-router-dom'
+import {app} from "../src/firebase/firebase";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+
 
 const baseUrl = "https://ariyal-ksp-datathon-backend.hf.space";
 
@@ -15,6 +18,7 @@ function AccessData() {
   const auth = getAuth();
   const user = auth.currentUser;
   let username = "";
+  let userRole = "USER";
 
   if (user !== null) {
     user.providerData.forEach((profile) => {
@@ -40,6 +44,20 @@ function AccessData() {
 
   useEffect(() => {
     const template = async () => {
+      // Get userRole
+      const db = getFirestore(app);
+      const docRef = doc(db, "roles", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        userRole = docSnap.data().role;
+        console.log("User role: ", userRole);
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+
+      // Block Chain stuffs
       const contractAddres = "0xD6C7e6F67960261121c3d2388eeE9e785E916BC2";
       const contractABI = abi.abi;
 
@@ -128,7 +146,7 @@ function AccessData() {
     console.log(data);
 
     try {
-      const response = await fetch(`${baseUrl}/anonymize-data?user=ADMIN`, {
+      const response = await fetch(`${baseUrl}/anonymize-data?user=${userRole}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
