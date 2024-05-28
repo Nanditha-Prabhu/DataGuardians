@@ -6,7 +6,6 @@ from typing import (
 )
 
 # from googletrans import Translator
-# import pandas as pd
 from presidio_analyzer import (
     AnalyzerEngine, 
     BatchAnalyzerEngine,
