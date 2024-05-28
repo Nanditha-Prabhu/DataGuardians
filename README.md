@@ -2,9 +2,7 @@
 
 Police Data Hub is a secure platform designed to manage police data efficiently and securely. It integrates advanced security measures and modern technologies to ensure the confidentiality, integrity, and transparency of police data handling.
 
-
-https://github.com/Nanditha-Prabhu/DataGuardians/assets/107810300/4669dd65-02a1-4201-bda9-08769b28d6fe
-
+https://github.com/satwikkamath/DataGuardians/assets/107809929/7bcaeb53-62dd-4f11-a434-b1443d93ef1e
 
 ## Key Features
 
